@@ -1,26 +1,30 @@
 \section{Related Work}
 \label{sec:related-work}
-
-\todo[inline]{Avoid dangling subsection. Explain the purpose of this section.}
+The development of a robust landslide detection system for the Martian surface requires an interdisciplinary understanding of computer vision and planetary science. This section reviews recent \cref{sec:Advancement in Semenatic Segmentation}, the specific challenges of \cref{sec:planetary}, and the paradigm shift toward \cref{sec:SSL,sec:Jepa}. 
 
 \subsection{Planetary Surface Analysis and Exploration}
+\label{sec:planetary}
 
-Mars has long been a focal point for planetary exploration, with significant research dedicated to identifying landslides on its surface. Detecting landslides automatically is a non-trivial task due to shifting atmospheric conditions and complex geomorphology. Historically, experts have identified these features manually using high-resolution imagery from the High Resolution Imaging Science Experiment (HiRISE) \cite{mcewen2007hirise}.
+Mars has long been a focal point for planetary exploration, with significant research dedicated to identifying landslides on its surface. Detecting landslides automatically is a non-trivial task due to shifting atmospheric conditions and complex geomorphology. Historically, experts have identified these features manually using high-resolution imagery from the High Resolution Imaging Science Experiment (HiRISE)~\cite{mcewen2007hirise}.
 
-Early automated systems primarily utilized physics-based features derived from digital elevation models, such as slope and elevation. Recently, the field has transitioned toward deep learning, employing Convolutional Neural Networks (CNNs) \cite{ghorbanzadeh2019deep} and architectures like U-Net \cite{ronneberger2015unet} for automated mapping. While traditional studies relied on monochromatic imagery, the introduction of the MMLSv2 dataset \cite{mmlsv2_2026} enabled the use of multimodal data, combining spectral imagery with topographic information to improve detection accuracy.
+Early automated systems primarily utilized physics-based features derived from digital elevation models, such as slope and elevation. Recently, the field has transitioned towards deep learning, employing Convolutional Neural Networks (CNNs)~\cite{oshea2015introductionconvolutionalneuralnetworks} for automated mapping. While traditional studies relied on monochromatic imagery, the introduction of the MMLSv2 dataset~\cite{mmlsv2_2026} enabled the use of multimodal data, combining spectral imagery with topographic information to improve detection accuracy.
+
+\subsection{Advancements in Semantic Segmentation}
+\label{sec:Advancement in Semenatic Segmentation}
+Semantic Segmentation has advanced from basic pixel-wise classifiers to encoder-decoder frameworks designed to capture multi-scale context. Early designs like U-Net~\cite{ronneberger2015unet} became highly popular because of its simple design based on skip connections that preserved spatial features. While U-Net++~\cite{zhou2019unetplusplus}  improved this by using nested and dense skip pathways to bridge the semantic gap between the features. To handle objects at different scales, Feature Pyramid Network (FPN)~\cite{DBLP:journals/corr/LinDGHHB16} and Pyramidal Attention Networks (PAN)~\cite{DBLP:journals/corr/abs-1805-10180} focussed ion integrating high-level global semantics with low-level spatial features.
+
+Further refinements led to the development of modules like DeepLabv3+~\cite{DBLP:journals/corr/abs-1802-02611} which relied on atrous convolutions to expand receptive fields. More recently attention driven architectures like MANet~\cite{Li_2022} and UPerNet~\cite{DBLP:journals/corr/abs-1807-10221} have sought to capture global dependencies effectively. Most recently transformer based frameworks like SegFormer~\cite{xie2021segformer} showed the efficiency of hierarchial self-attention in capturing long range concept.
 
 \subsection{Self-Supervised Learning in Remote Sensing}
-Self-supervised representation learning has seen a paradigm shift from contrastive frameworks, which rely heavily on data augmentations, to Masked Image Modeling (MIM). While generative approaches like Masked Autoencoders (MAE) \cite{he2022masked} have shown promising results by reconstructing raw pixels, they are often ill-suited for the multi-sensor nature of Martian remote sensing. Pixel reconstruction is computationally intensive for high-dimensional data and risks "information leakage" in multimodal datasets, where highly correlated channels (e.g., RGB and Grayscale) allow the model to bypass learning deeper geological features.
+\label{sec:SSL}
+Self-supervised representation learning~\cite{DBLP:journals/corr/abs-2002-05709} has seen a paradigm shift from contrastive frameworks, which rely heavily on data augmentations, to Masked Image Modeling (MIM)~\cite{hondru2025maskedimagemodelingsurvey}. While generative approaches like Masked Autoencoders (MAE)~\cite{he2022masked} have shown promising results by reconstructing raw pixels, they are often ill-suited for the multi-sensor nature of Martian remote sensing. Pixel reconstruction is computationally intensive for high-dimensional data and risks "information leakage" in multimodal datasets, where highly correlated channels (e.g., RGB and Grayscale) allow the model to bypass learning deeper geological features.
 
 \subsection{Joint Embedding Predictive Architectures (JEPA)}
-At the core of our methodology is the JEPA architecture, a paradigm proposed as a foundational step toward non-generative world models \cite{lecun2022path}. Unlike generative models, JEPA performs its predictive objective entirely within an abstract representation space. Following the I-JEPA approach \cite{assran2023self}, our model utilizes an asymmetrical structure consisting of a context encoder, a target encoder, and a predictor.
+\label{sec:Jepa}
+The JEPA framework has recently been propsed as a foundational step toward non-generative alternative for developing world models~\cite{LeCun2022APT}. Unlike generative models, JEPA performs its predictive objective entirely within an abstract representation space, capturing. Following the I-JEPA approach~\cite{assran2023selfsupervisedlearningimagesjointembedding}, our model utilizes an asymmetrical structure consisting of a context encoder, a target encoder, and a predictor.
 
-The context encoder processes only visible "hints" of the Martian surface, while the predictor estimates the latent embeddings of missing patches. This "prediction in latent space" forces the network to capture underlying semantic and geological properties rather than superficial spectral values. To prevent representation collapse—a common challenge in self-supervised learning—we integrate Stochastic Information Gradient Regularization (SIGReg), ensuring that learned features remain diverse across all seven input modalities.
+The context encoder processes visible portions of an image, while the predictor is tasked with estimating the latent embeddings of missing regions. This "prediction in latent space" encourages the network to capture underlying structural and semantic properties. A significant challenge in such self-supervised frameworks is representation collapse—where the encoder converges to a trivial constant output. To maintain feature diversity, methods such as Stochastic Information Gradient Regularization (SIGReg)~\cite{balestriero2025lejepaprovablescalableselfsupervised}, VICReg~\cite{bardes2022vicregvarianceinvariancecovarianceregularizationselfsupervised} are often employed to ensure that learned representations remain informative across multiple input dimensions.
 
-\subsection{Spatio-Spectral Reasoning}
-Our work extends the JEPA framework into the spatio-spectral domain. Unlike previous implementations that treat multimodal inputs as a single unified cube, our architecture utilizes independent channel tokenization and factorized learned embeddings. This allows for a granular masking strategy where specific modalities can be hidden at specific spatial locations. By doing so, we force the model to learn the intrinsic physical correlations between disparate Martian sensors—such as the relationship between topographic slope and thermal inertia—thereby producing more robust features for landslide segmentation.
 
-\subsection{Semantic Segmentation}
-\label{sec:sem-seg}
 
-\todo[inline]{Write about modern semantic segmentation heads and how they have been used with different encoder backbones.}
+

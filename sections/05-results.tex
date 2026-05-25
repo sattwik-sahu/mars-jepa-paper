@@ -4,20 +4,21 @@
 \lipsum{4}
 
 \begin{table}
+	\small
 	\centering
 	\begin{tabular}{llrrrr}
 		\toprule{}
 		\textbf{Encoder}         & \textbf{Segmentation} & \multicolumn{1}{l}{\textbf{MIoU}} & \multicolumn{1}{l}{\textbf{Precision}} & \multicolumn{1}{l}{\textbf{Recall}} & \multicolumn{1}{l}{\textbf{F1 Score}} \\
 		\midrule{}
-		\multirow{7}{*}{I-JEPA}  & UperNet               & 0.8350                            & 0.8613                                 & 0.8678                              & 0.8643                                \\
-		                         & UNet                  & 0.8286                            & 0.8531                                 & 0.8723                              & 0.8624                                \\
+		\multirow{7}{*}{I-JEPA}  & UPerNet               & 0.8350                            & 0.8613                                 & 0.8678                              & 0.8643                                \\
+		                         & UNet                  & \textbf{0.849} & \textbf{0.873}      & \textbf{0.892}  & \textbf{0.882}                                \\
 		                         & UNet++                & 0.8247                            & 0.8601                                 & 0.8795                              & 0.8690                                \\
 		                         & FPN                   & 0.8246                            & 0.8488                                 & 0.8897                              & 0.8687                                \\
 		                         & MANet                 & 0.8100                            & 0.8448                                 & 0.8683                              & 0.8555                                \\
 		                         & DeepLabv3+            & 0.8183                            & 0.8576                                 & 0.8689                              & 0.8632                                \\
 		                         & PAN                   & 0.8141                            & 0.8559                                 & 0.8693                              & 0.8622                                \\
 		\cmidrule{1-6}
-		\multirow{7}{*}{SS-JEPA} & UperNet               & \textbf{0.8652}                   & 0.8838                                 & 0.8859                              & 0.8848                                \\
+		\multirow{7}{*}{SS-JEPA} & UPerNet               & \textbf{0.865} & \textbf{0.900}      & \textbf{0.905}  & \textbf{0.902}                                \\
 		                         & UNet                  & 0.8521                            & 0.8631                                 & 0.8868                              & 0.8748                                \\
 		                         & UNet++                & 0.8399                            & 0.8768                                 & 0.8596                              & 0.8681                                \\
 		                         & FPN                   & 0.8265                            & 0.8656                                 & 0.8777                              & 0.8716                                \\
@@ -26,8 +27,30 @@
 		                         & PAN                   & 0.8170                            & 0.8620                                 & 0.8587                              & 0.8604                                \\
 		\bottomrule{}
 	\end{tabular}
-
 	\caption{Segmentation performance with self-supervised encoder backbones.}
-	\todo[inline]{Add citations for segmentation heads}
 	\label{tab:ssl-enc-seg}
+	\todo[inline]{Add citations for segmentation heads}
+	\todo[inline]{Add IOU (FG) and IOU (BG) columns here.}
 \end{table}
+
+\begin{table}\centering\small
+	%\resizebox{\textwidth}{!}{ % use this if the table is too large
+	\begin{tabular}{lrrrrr}\toprule
+		\textbf{Model}                        & \textbf{MIoU} & \textbf{Precision } & \textbf{Recall} & \textbf{F1 Score} \\\midrule
+		U-Net                                 & 0.814         & 0.858               & 0.868           & 0.863             \\
+		U-Net++                               & 0.823         & 0.864               & 0.879           & 0.871             \\
+		PSPNet                                & 0.828         & 0.866               & 0.884           & 0.875             \\
+		DeepLabV3                             & 0.817         & 0.870               & 0.860           & 0.865             \\
+		DeepLabV3+                            & 0.829         & 0.863               & 0.889           & 0.876             \\
+		SegFormer                             & 0.812         & 0.859               & 0.863           & 0.861             \\
+		DualSwinV2 + U-Net++, 5-fold ensemble & 0.867         & 0.900               & 0.911           & 0.905             \\
+		DualSwinV2-S + Hybrid Decoder         & 0.828         & 0.856               & 0.899           & 0.877             \\
+		\textbf{SS-JEPA + UPerNet}            & \textbf{0.865} & \textbf{0.900}      & \textbf{0.905}  & \textbf{0.902}    \\
+		\textbf{I-JEPA + U-Net}               & \textbf{0.849} & \textbf{0.873}      & \textbf{0.892}  & \textbf{0.882}    \\
+		\bottomrule
+	\end{tabular}
+	\vspace{0.5em}
+	\caption{Generated by Spread-LaTeX}\label{tab:all-vs-ours}
+	\todo[inline]{Add IOU (FG) and IOU (BG) columns here.}
+\end{table}
+
