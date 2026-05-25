@@ -1,10 +1,6 @@
 \section{Related Work}
 \label{sec:related-work}
-In this section we will look how the paradigm of landlside segmentation on martain surface has evolved overtime. We discuss the transition from traditional mapping to deep learning in \cref{sec:planetary}, followed by an analysis of the Self Supervised learning methods and world models in \cref{sec:SSL} and \cref{sec:Jepa}. We end this section by a deep theoretical overview of the current archictures that are most commonly used for segmentation.
-
-\cref{sec:planetary} explains hwo planetary blah lahsdkjhsbd
-
-\todo[inline]{Avoid dangling subsection. Explain the purpose of this section.}
+The development of a robust landslide detection system for the Martian surface requires an interdisciplinary understanding of computer vision and planetary science. This section reviews recent \cref{sed: Advancement in Semenatic Segmentation}, the specific challenges of \cref{sec:planetary}, and the paradigm shift toward \cref{sec:SSL,sec:Jepa,sec:architecture}. 
 
 \subsection{Planetary Surface Analysis and Exploration}
 \label{sec:planetary}
@@ -14,7 +10,7 @@ Mars has long been a focal point for planetary exploration, with significant res
 Early automated systems primarily utilized physics-based features derived from digital elevation models, such as slope and elevation. Recently, the field has transitioned toward deep learning, employing Convolutional Neural Networks (CNNs) \cite{ghorbanzadeh2019deep} for automated mapping. While traditional studies relied on monochromatic imagery, the introduction of the MMLSv2 dataset \cite{mmlsv2_2026} enabled the use of multimodal data, combining spectral imagery with topographic information to improve detection accuracy.
 
 \subsection{Advancements in Semantic Segmentation}
-\label{label: Advancement in Semenatic Segmentation}
+\label{sed: Advancement in Semenatic Segmentation}
 Semantic Segmentation has advanced from basic pixel-wise classifiers to encoder-decoder frameworks designed to capture multi-scale context. Early designs like U-Net became highly popular because of its simple design based on skip connections that preserved spatial features. While U-Net++  improved this by using nested and dense skip pathways to bridge the semantic gap between the features. To handle objects at different scales, Feature Pyramid Network (FPN) and Pyramidal Attention Networks (PAN) focussed ion integrating high-level global semantics with low-level spatial features.
 
 Further refinements led to the development of modules like DeepLabv3+ which relied on atrous convolutions to expand receptive fields. More recently attention driven architectures like MANet and UperNet have sought to capture global dependencies effectively. Most recently transformer based frameworks like SegFormer showed the efficiency of hierarchial self-attention in capturing long range concept.
@@ -25,15 +21,12 @@ Self-supervised representation learning has seen a paradigm shift from contrasti
 
 \subsection{Joint Embedding Predictive Architectures (JEPA)}
 \label{sec:Jepa}
-At the core of our methodology is the JEPA architecture, a paradigm proposed as a foundational step toward non-generative world models \cite{lecun2022path}. Unlike generative models, JEPA performs its predictive objective entirely within an abstract representation space. Following the I-JEPA approach \cite{assran2023self}, our model utilizes an asymmetrical structure consisting of a context encoder, a target encoder, and a predictor.
+The JEPA framework has recently been propsed as a foundational step toward non-generative alternative fordeveloping world models \cite{lecun2022path}. Unlike generative models, JEPA performs its predictive objective entirely within an abstract representation space, capturing. Following the I-JEPA approach \cite{assran2023self}, our model utilizes an asymmetrical structure consisting of a context encoder, a target encoder, and a predictor.
 
-The context encoder processes only visible "hints" of the Martian surface, while the predictor estimates the latent embeddings of missing patches. This "prediction in latent space" forces the network to capture underlying semantic and geological properties rather than superficial spectral values. To prevent representation collapse—a common challenge in self-supervised learning—we integrate Stochastic Information Gradient Regularization (SIGReg), ensuring that learned features remain diverse across all seven input modalities.
+The context encoder processes visible portions of an image, while the predictor is tasked with estimating the latent embeddings of missing regions. This "prediction in latent space" encourages the network to capture underlying structural and semantic properties. A significant challenge in such self-supervised frameworks is representation collapse—where the encoder converges to a trivial constant output. To maintain feature diversity, methods such as Stochastic Information Gradient Regularization (SIGReg) are often employed to ensure that learned representations remain informative across multiple input dimensions.
 
 \subsection{Spatio-Spectral Reasoning}
 \label{sec:architecture}
-Our work extends the JEPA framework into the spatio-spectral domain. Unlike previous implementations that treat multimodal inputs as a single unified cube, our architecture utilizes independent channel tokenization and factorized learned embeddings. This allows for a granular masking strategy where specific modalities can be hidden at specific spatial locations. By doing so, we force the model to learn the intrinsic physical correlations between disparate Martian sensors—such as the relationship between topographic slope and thermal inertia—thereby producing more robust features for landslide segmentation.
+Spatio-Spectral Reasoning involves the simultaneous modelling of spatial structures and spectral ranges across diverse sensor moodalities. Traditional multimodal implementations often treat multi-channel inputs as a single unified cube; however, an emerging strategy involves independent channel tokenization paired with factorized learned embeddings. This approach enables a more granular masking strategy where specific sensors or modalities can be hidden at specific spatial locations. Such strategies theoretically force a model to learn the intrinsic physical correlations between disparate sensors—such as the relationship between topographic slope and thermal inertia—leading to more robust features for downstream tasks like landslide segmentation.
 
-\subsection{Semantic Segmentation}
-\label{sec:sem-seg}
 
-\todo[inline]{Write about modern semantic segmentation heads and how they have been used with different encoder backbones.}
