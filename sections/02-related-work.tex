@@ -1,5 +1,6 @@
 \section{Related Work}
 \label{sec:related-work}
+In this section we will look how the paradigm of landlside segmentation on martain surface has evolved overtime. We discuss the transition from traditional mapping to deep learning in \cref{sec:planetary}, followed by an analysis of the Self Supervised learning methods and world models in \cref{sec:SSL} and \cref{sec:Jepa}. We end this section by a deep theoretical overview of the current archictures that are most commonly used for segmentation.
 
 \cref{sec:planetary} explains hwo planetary blah lahsdkjhsbd
 
@@ -10,17 +11,26 @@
 
 Mars has long been a focal point for planetary exploration, with significant research dedicated to identifying landslides on its surface. Detecting landslides automatically is a non-trivial task due to shifting atmospheric conditions and complex geomorphology. Historically, experts have identified these features manually using high-resolution imagery from the High Resolution Imaging Science Experiment (HiRISE) \cite{mcewen2007hirise}.
 
-Early automated systems primarily utilized physics-based features derived from digital elevation models, such as slope and elevation. Recently, the field has transitioned toward deep learning, employing Convolutional Neural Networks (CNNs) \cite{ghorbanzadeh2019deep} and architectures like U-Net \cite{ronneberger2015unet} for automated mapping. While traditional studies relied on monochromatic imagery, the introduction of the MMLSv2 dataset \cite{mmlsv2_2026} enabled the use of multimodal data, combining spectral imagery with topographic information to improve detection accuracy.
+Early automated systems primarily utilized physics-based features derived from digital elevation models, such as slope and elevation. Recently, the field has transitioned toward deep learning, employing Convolutional Neural Networks (CNNs) \cite{ghorbanzadeh2019deep} for automated mapping. While traditional studies relied on monochromatic imagery, the introduction of the MMLSv2 dataset \cite{mmlsv2_2026} enabled the use of multimodal data, combining spectral imagery with topographic information to improve detection accuracy.
+
+\subsection{Advancements in Semantic Segmentation}
+\label{label: Advancement in Semenatic Segmentation}
+Semantic Segmentation has advanced from basic pixel-wise classifiers to encoder-decoder frameworks designed to capture multi-scale context. Early designs like U-Net became highly popular because of its simple design based on skip connections that preserved spatial features. While U-Net++  improved this by using nested and dense skip pathways to bridge the semantic gap between the features. To handle objects at different scales, Feature Pyramid Network (FPN) and Pyramidal Attention Networks (PAN) focussed ion integrating high-level global semantics with low-level spatial features.
+
+Further refinements led to the development of modules like DeepLabv3+ which relied on atrous convolutions to expand receptive fields. More recently attention driven architectures like MANet and UperNet have sought to capture global dependencies effectively. Most recently transformer based frameworks like SegFormer showed the efficiency of hierarchial self-attention in capturing long range concept.
 
 \subsection{Self-Supervised Learning in Remote Sensing}
+\label{sec:SSL}
 Self-supervised representation learning has seen a paradigm shift from contrastive frameworks, which rely heavily on data augmentations, to Masked Image Modeling (MIM). While generative approaches like Masked Autoencoders (MAE) \cite{he2022masked} have shown promising results by reconstructing raw pixels, they are often ill-suited for the multi-sensor nature of Martian remote sensing. Pixel reconstruction is computationally intensive for high-dimensional data and risks "information leakage" in multimodal datasets, where highly correlated channels (e.g., RGB and Grayscale) allow the model to bypass learning deeper geological features.
 
 \subsection{Joint Embedding Predictive Architectures (JEPA)}
+\label{sec:Jepa}
 At the core of our methodology is the JEPA architecture, a paradigm proposed as a foundational step toward non-generative world models \cite{lecun2022path}. Unlike generative models, JEPA performs its predictive objective entirely within an abstract representation space. Following the I-JEPA approach \cite{assran2023self}, our model utilizes an asymmetrical structure consisting of a context encoder, a target encoder, and a predictor.
 
 The context encoder processes only visible "hints" of the Martian surface, while the predictor estimates the latent embeddings of missing patches. This "prediction in latent space" forces the network to capture underlying semantic and geological properties rather than superficial spectral values. To prevent representation collapse—a common challenge in self-supervised learning—we integrate Stochastic Information Gradient Regularization (SIGReg), ensuring that learned features remain diverse across all seven input modalities.
 
 \subsection{Spatio-Spectral Reasoning}
+\label{sec:architecture}
 Our work extends the JEPA framework into the spatio-spectral domain. Unlike previous implementations that treat multimodal inputs as a single unified cube, our architecture utilizes independent channel tokenization and factorized learned embeddings. This allows for a granular masking strategy where specific modalities can be hidden at specific spatial locations. By doing so, we force the model to learn the intrinsic physical correlations between disparate Martian sensors—such as the relationship between topographic slope and thermal inertia—thereby producing more robust features for landslide segmentation.
 
 \subsection{Semantic Segmentation}
