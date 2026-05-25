@@ -18,7 +18,7 @@
 			nodes near coords,
 			point meta=explicit symbolic,
 			every node near coord/.append style={
-					font=\scriptsize,
+					font=\small,
 					anchor=south,
 					inner sep=5pt,
 				}
@@ -30,6 +30,7 @@
 			mark=square*,
 			mark size=3pt,
 			BlueViolet,
+			every node near coord/.append style={xshift=-8pt}
 		] table [meta=label] {
 				x   y   label
 				113.0 0.867 {DualSwinV2 + U-Net++ (113M)}
