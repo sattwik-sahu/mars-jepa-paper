@@ -1,57 +1,52 @@
 \section{Results and Discussion}
 \label{sec:results}
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> fe0059e (feat[latent]: added latents figure)
 \begin{table}
 	\small
 	\centering
 	\begin{tabular}{llrrrrrr}
 		\toprule{}
-		\textbf{Encoder}         & \textbf{Segmentation} & \multicolumn{1}{l}{\textbf{MIoU}}  & \multicolumn{1}{l}{\textbf{Precision}} & \multicolumn{1}{l}{\textbf{Recall}} & \multicolumn{1}{l}{\textbf{F1 Score}} & \multicolumn{1}{l}{\textbf{FG IOU}} & \multicolumn{1}{l}{\textbf{BG IOU}} \\
+		\textbf{Encoder}         & \textbf{Segmentation}                                     & \multicolumn{1}{l}{\textbf{MIoU}} & \multicolumn{1}{l}{\textbf{Precision}} & \multicolumn{1}{l}{\textbf{Recall}} & \multicolumn{1}{l}{\textbf{F1 Score}} & \multicolumn{1}{l}{\textbf{FG IOU}} & \multicolumn{1}{l}{\textbf{BG IOU}} \\
 		\midrule{}
-		\multirow{8}{*}{I-JEPA}  & UperNet~\cite{DBLP:journals/corr/abs-1807-10221}              & 0.825                             & 0.861                                  & 0.868                               & 0.864                & 0.774                  & 0.876                 \\
-		                         & UNet~\cite{ronneberger2015unet}                 & 0.829                             & 0.853                                  & 0.872                               & 0.862                & 0.780                 	& 0.878                 \\
-		                         & UNet++ ~\cite{zhou2019unetplusplus}              & 0.825                             & 0.860                                  & 0.880                               & 0.869                & 0.777                 	& 0.873                 \\
-		                         & FPN~\cite{DBLP:journals/corr/LinDGHHB16}                  & 0.825                             & 0.849                                  & 0.890                               & 0.869                & 0.779                  & 0.871                 \\
-		                         & MANet~\cite{Li_2022}                & 0.810                           & 0.845                                  & 0.868                               & 0.856                & 0.761                  & 0.859                 \\
-		                         & DeepLabv3+~\cite{DBLP:journals/corr/abs-1802-02611}          & 0.818                             & 0.858                                  & 0.869                               & 0.863                & 0.766                  & 0.871                 \\
-		                         & PAN~\cite{DBLP:journals/corr/abs-1805-10180}                  & 0.814                             & 0.856                                  & 0.869                               & 0.862                & 0.761                  & 0.867                 \\
-		                         & \textbf{SegFormer}~\cite{xie2021segformer}    & \textbf{0.837}                    & 0.858                                  & 0.876                               & 0.865                & 0.790                  & 0.884           		\\ 
+		\multirow{8}{*}{I-JEPA}  & UperNet~\cite{DBLP:journals/corr/abs-1807-10221}          & 0.825                             & 0.861                                  & 0.868                               & 0.864                                 & 0.774                               & 0.876                               \\
+		                         & UNet~\cite{ronneberger2015unet}                           & 0.829                             & 0.853                                  & 0.872                               & 0.862                                 & 0.780                               & 0.878                               \\
+		                         & UNet++ ~\cite{zhou2019unetplusplus}                       & 0.825                             & 0.860                                  & 0.880                               & 0.869                                 & 0.777                               & 0.873                               \\
+		                         & FPN~\cite{DBLP:journals/corr/LinDGHHB16}                  & 0.825                             & 0.849                                  & 0.890                               & 0.869                                 & 0.779                               & 0.871                               \\
+		                         & MANet~\cite{Li_2022}                                      & 0.810                             & 0.845                                  & 0.868                               & 0.856                                 & 0.761                               & 0.859                               \\
+		                         & DeepLabv3+~\cite{DBLP:journals/corr/abs-1802-02611}       & 0.818                             & 0.858                                  & 0.869                               & 0.863                                 & 0.766                               & 0.871                               \\
+		                         & PAN~\cite{DBLP:journals/corr/abs-1805-10180}              & 0.814                             & 0.856                                  & 0.869                               & 0.862                                 & 0.761                               & 0.867                               \\
+		                         & \textbf{SegFormer}~\cite{xie2021segformer}                & \textbf{0.837}                    & 0.858                                  & 0.876                               & 0.865                                 & 0.790                               & 0.884                               \\
 		\cmidrule{1-8}
-		\multirow{8}{*}{SS-JEPA} & \textbf{UperNet}~\cite{DBLP:journals/corr/abs-1807-10221}      & \textbf{0.865}                    & 0.884                                  & 0.886                               & 0.885                & 0.820               	& 0.910					\\
-		                         & UNet~\cite{ronneberger2015unet}                  & 0.852                             & 0.863                                  & 0.887                               & 0.875                & 0.824                  & 0.880					\\
-		                         & UNet++~\cite{zhou2019unetplusplus}              & 0.840                             & 0.877                                  & 0.860                               & 0.868                & 0.807                  & 0.873 				\\
-		                         & FPN~\cite{DBLP:journals/corr/LinDGHHB16}                   & 0.827                             & 0.866                                  & 0.878                               & 0.872                & 0.776                  & 0.878					\\
-		                         & MANet~\cite{Li_2022}                 & 0.826                             & 0.869                                  & 0.870                               & 0.870                & 0.782                  & 0.870					\\
-		                         & DeepLabv3+~\cite{DBLP:journals/corr/abs-1802-02611}           & 0.820                          &  0.858                               & 0.866                              &  0.862            & 0.769                	& 0.871                \\
-		                         & PAN~\cite{DBLP:journals/corr/abs-1805-10180}                 &  0.817                           & 0.862                               &   0.859                            &   0.860             & 0.764                 & 0.870              	\\
-		                         & SegFormer~\cite{xie2021segformer}            &  0.834                           & 0.800                                & 0.848                              & 0.814               & 0.786                 & 0.882                \\
+		\multirow{8}{*}{SS-JEPA} & \textbf{UperNet}~\cite{DBLP:journals/corr/abs-1807-10221} & \textbf{0.865}                    & 0.884                                  & 0.886                               & 0.885                                 & 0.820                               & 0.910                               \\
+		                         & UNet~\cite{ronneberger2015unet}                           & 0.852                             & 0.863                                  & 0.887                               & 0.875                                 & 0.824                               & 0.880                               \\
+		                         & UNet++~\cite{zhou2019unetplusplus}                        & 0.840                             & 0.877                                  & 0.860                               & 0.868                                 & 0.807                               & 0.873                               \\
+		                         & FPN~\cite{DBLP:journals/corr/LinDGHHB16}                  & 0.827                             & 0.866                                  & 0.878                               & 0.872                                 & 0.776                               & 0.878                               \\
+		                         & MANet~\cite{Li_2022}                                      & 0.826                             & 0.869                                  & 0.870                               & 0.870                                 & 0.782                               & 0.870                               \\
+		                         & DeepLabv3+~\cite{DBLP:journals/corr/abs-1802-02611}       & 0.820                             & 0.858                                  & 0.866                               & 0.862                                 & 0.769                               & 0.871                               \\
+		                         & PAN~\cite{DBLP:journals/corr/abs-1805-10180}              & 0.817                             & 0.862                                  & 0.859                               & 0.860                                 & 0.764                               & 0.870                               \\
+		                         & SegFormer~\cite{xie2021segformer}                         & 0.834                             & 0.800                                  & 0.848                               & 0.814                                 & 0.786                               & 0.882                               \\
 		\bottomrule{}
 	\end{tabular}
 	\caption{Segmentation performance with self-supervised encoder backbones}
 	\label{tab:ssl-enc-seg}
 	\todo[inline]{Add citations for segmentation heads}
-	
+
 \end{table}
 
 \begin{table}\centering\scriptsize
 	\begin{tabular}{lrrrrrr}\toprule
-		\textbf{Model}                        & \textbf{MIoU}  & \textbf{Precision } & \textbf{Recall} & \textbf{F1 Score} &\textbf{FG IOU} &\textbf{BG IOU} \\
+		\textbf{Model}                                                                                    & \textbf{MIoU} & \textbf{Precision } & \textbf{Recall} & \textbf{F1 Score} & \textbf{FG IOU} & \textbf{BG IOU} \\
 		\midrule
-		U-Net~\cite{ronneberger2015unet}                                & 0.814         & 0.858               & 0.868           & 0.863  &  0.759 & 0.868           \\
-		U-Net++~\cite{zhou2019unetplusplus}                               & 0.823         & 0.864               & 0.879           & 0.871  & 0.772 & 0.875           \\
-		PSPNet~\cite{zhao2017pyramidsceneparsingnetwork}                                & 0.828         & 0.866               & 0.884           & 0.875 & 0.778 & 0.878            \\
-		DeepLabV3~\cite{chen2017deeplabsemanticimagesegmentation}                             & 0.817         & 0.870               & 0.860           & 0.865  & 0.763 & 0.872            \\
-		DeepLabV3+~\cite{DBLP:journals/corr/abs-1802-02611}                            & 0.829         & 0.863               & 0.889           & 0.876   & 0.779 & 0.878          \\
-		SegFormer~\cite{xie2021segformer}                             & 0.812         & 0.859               & 0.863           & 0.861 & 0.756 & 0.867           \\
-		DualSwinV2 + U-Net++, 5-fold ensemble~\cite{kabir2026dualswinfusionsegmultimodalmartianlandslide} & 0.867         & 0.900               & 0.911           & 0.905   & 0.827 &0.907          \\
-		DualSwinV2-S + Hybrid Decoder~\cite{kabir2026dualswinfusionsegmultimodalmartianlandslide}        & 0.828         & 0.856               & 0.899           & 0.877    & - & -         \\
-		SS-JEPA + UPerNet (Ours)              & 0.865         & 0.884               & 0.886           & 0.885 & 0.820 &0.910            \\
-		I-JEPA + SegFormer (Ours)             & 0.837         & 0.858               & 0.876           & 0.865 & 0.790 & 0.884            \\
+		U-Net~\cite{ronneberger2015unet}                                                                  & 0.814         & 0.858               & 0.868           & 0.863             & 0.759           & 0.868           \\
+		U-Net++~\cite{zhou2019unetplusplus}                                                               & 0.823         & 0.864               & 0.879           & 0.871             & 0.772           & 0.875           \\
+		PSPNet~\cite{zhao2017pyramidsceneparsingnetwork}                                                  & 0.828         & 0.866               & 0.884           & 0.875             & 0.778           & 0.878           \\
+		DeepLabV3~\cite{chen2017deeplabsemanticimagesegmentation}                                         & 0.817         & 0.870               & 0.860           & 0.865             & 0.763           & 0.872           \\
+		DeepLabV3+~\cite{DBLP:journals/corr/abs-1802-02611}                                               & 0.829         & 0.863               & 0.889           & 0.876             & 0.779           & 0.878           \\
+		SegFormer~\cite{xie2021segformer}                                                                 & 0.812         & 0.859               & 0.863           & 0.861             & 0.756           & 0.867           \\
+		DualSwinV2 + U-Net++, 5-fold ensemble~\cite{kabir2026dualswinfusionsegmultimodalmartianlandslide} & 0.867         & 0.900               & 0.911           & 0.905             & 0.827           & 0.907           \\
+		DualSwinV2-S + Hybrid Decoder~\cite{kabir2026dualswinfusionsegmultimodalmartianlandslide}         & 0.828         & 0.856               & 0.899           & 0.877             & -               & -               \\
+		SS-JEPA + UPerNet (Ours)                                                                          & 0.865         & 0.884               & 0.886           & 0.885             & 0.820           & 0.910           \\
+		I-JEPA + SegFormer (Ours)                                                                         & 0.837         & 0.858               & 0.876           & 0.865             & 0.790           & 0.884           \\
 		\bottomrule
 	\end{tabular}
 	\vspace{0.5em}
@@ -80,5 +75,4 @@
 	\end{center}
 	\caption{Qualitative visualization of segmentation masks from models with JEPA encoder backbones}\label{fig:}
 \end{figure}
-
 
