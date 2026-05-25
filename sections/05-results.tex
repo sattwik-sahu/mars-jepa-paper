@@ -3,29 +3,30 @@
 
 \lipsum{4}
 
-% \begin{table}
-% 	\centering
-% 	\begin{tabular}{clllll}
-% 		\toprule
-% 		\thead{Encoder}          & \thead{Segmentation} & \thead{MIoU} & \thead{Precision} & \thead{Recall} & \thead{F1 Score} \\
-% 		\midrule
-% 		\multirow{7}{*}{SS-JEPA} & U-Net                & 0            & 0                 & 0              & 0                \\
-% 		                         & U-Net++              & 0            & 0                 & 0              & 0                \\
-% 		                         & PAN                  & 0            & 0                 & 0              & 0                \\
-% 		                         & FPN                  & 0            & 0                 & 0              & 0                \\
-% 		                         & MANet                & 0            & 0                 & 0              & 0                \\
-% 		                         & UPerNet              & 0            & 0                 & 0              & 0                \\
-% 		                         & DeepLabv3+           & 0            & 0                 & 0              & 0                \\
-% 		% \cmidrule
-% 		\multirow{7}{*}{I-JEPA}  & U-Net                & 0            & 0                 & 0              & 0                \\
-% 		                         & U-Net++              & 0            & 0                 & 0              & 0                \\
-% 		                         & PAN                  & 0            & 0                 & 0              & 0                \\
-% 		                         & FPN                  & 0            & 0                 & 0              & 0                \\
-% 		                         & MANet                & 0            & 0                 & 0              & 0                \\
-% 		                         & UPerNet              & 0            & 0                 & 0              & 0                \\
-% 		                         & DeepLabv3+           & 0            & 0                 & 0              & 0                \\
-% 		\bottomrule
-% 	\end{tabular}
-% 	\caption{Caption}
-% 	\label{tab:my_label}
-% \end{table}
+\begin{table}
+	\centering
+	\begin{tabular}{llrrrr}
+		\toprule{}
+		\textbf{Encoder}         & \textbf{Segmentation} & \multicolumn{1}{l}{\textbf{MIoU}} & \multicolumn{1}{l}{\textbf{Precision}} & \multicolumn{1}{l}{\textbf{Recall}} & \multicolumn{1}{l}{\textbf{F1 Score}} \\
+		\midrule{}
+		\multirow{7}{*}{I-JEPA}  & UperNet               & 0.8350                            & 0.8613                                 & 0.8678                              & 0.8643                                \\
+		                         & UNet                  & 0.8286                            & 0.8531                                 & 0.8723                              & 0.8624                                \\
+		                         & UNet++                & 0.8247                            & 0.8601                                 & 0.8795                              & 0.8690                                \\
+		                         & FPN                   & 0.8246                            & 0.8488                                 & 0.8897                              & 0.8687                                \\
+		                         & MANet                 & 0.8100                            & 0.8448                                 & 0.8683                              & 0.8555                                \\
+		                         & DeepLabv3+            & 0.8183                            & 0.8576                                 & 0.8689                              & 0.8632                                \\
+		                         & PAN                   & 0.8141                            & 0.8559                                 & 0.8693                              & 0.8622                                \\
+		\cmidrule{1-6}
+		\multirow{7}{*}{SS-JEPA} & UperNet               & \textbf{0.8652}                   & 0.8838                                 & 0.8859                              & 0.8848                                \\
+		                         & UNet                  & 0.8521                            & 0.8631                                 & 0.8868                              & 0.8748                                \\
+		                         & UNet++                & 0.8399                            & 0.8768                                 & 0.8596                              & 0.8681                                \\
+		                         & FPN                   & 0.8265                            & 0.8656                                 & 0.8777                              & 0.8716                                \\
+		                         & MANet                 & 0.8262                            & 0.8691                                 & 0.8703                              & 0.8697                                \\
+		                         & DeepLabv3+            & 0.8202                            & 0.8579                                 & 0.8660                              & 0.8619                                \\
+		                         & PAN                   & 0.8170                            & 0.8620                                 & 0.8587                              & 0.8604                                \\
+		\bottomrule{}
+	\end{tabular}
+
+	\caption{Segmentation performance with self-supervised encoder backbones.}
+	\label{tab:ssl-enc-seg}
+\end{table}
