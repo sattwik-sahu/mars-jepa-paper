@@ -1,0 +1,68 @@
+\begin{tikzpicture}
+	\begin{axis}[
+			width=0.9\linewidth,
+			height=7cm,
+			xlabel={Model Parameters (in Millions)},
+			ylabel={mIoU on Validation Dataset},
+			grid=both,
+			grid style={line width=.1pt, draw=Gray!10},
+			major grid style={line width=.2pt, draw=Gray!30},
+			xmin=0, xmax=130,
+			ymin=0.81, ymax=0.88,
+			legend pos=south east,
+			legend style={font=\scriptsize, fill, draw},
+			enlarge x limits={rel=0.1},
+			enlarge y limits={rel=0.1},
+			title style={font=\bfseries},
+			% Positioning labels automatically
+			nodes near coords,
+			point meta=explicit symbolic,
+			every node near coord/.append style={
+					font=\scriptsize,
+					anchor=south,
+					inner sep=5pt,
+				}
+		]
+
+		% Data for Baselines (Standard Models)
+		\addplot[
+			only marks,
+			mark=square*,
+			mark size=3pt,
+			BlueViolet,
+		] table [meta=label] {
+				x   y   label
+				113.0 0.867 {DualSwinV2 + U-Net++ (113M)}
+				113.0 0.828 {DualSwinV2-S + Hybrid (113M)}
+			};
+		\addlegendentry{DualSwinV2 Baselines}
+
+
+		% Data for TinySwin + FPN
+		\addplot[
+			only marks,
+			mark=triangle*,
+			mark size=4pt,
+			PineGreen,
+			every node near coord/.append style={anchor=north, xshift=25pt}
+		] table [meta=label] {
+				x   y   label
+				33.0 0.837 {TinySwin + FPN (33M)}
+			};
+		\addlegendentry{TinySwin + FPN}
+
+		% Data for JEPA Models (Your Focus)
+		\addplot[
+			only marks,
+			mark=diamond*,
+			mark size=4pt,
+			BrickRed,
+		] table [meta=label] {
+				x   y   label
+				20.0 0.865 {\textbf{SS-JEPA + UPerNet} (20M)}
+				23.7 0.837 {I-JEPA + SegFormer (23.7M)}
+			};
+		\addlegendentry{JEPA-based (Ours)}
+	\end{axis}
+\end{tikzpicture}
+
