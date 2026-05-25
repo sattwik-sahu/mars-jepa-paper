@@ -24,9 +24,9 @@
 		                         & UNet++~\cite{zhou2019unetplusplus}              & 0.840                             & 0.877                                  & 0.860                               & 0.868                & 0.807                  & 0.873 				\\
 		                         & FPN~\cite{DBLP:journals/corr/LinDGHHB16}                   & 0.827                             & 0.866                                  & 0.878                               & 0.872                & 0.776                  & 0.878					\\
 		                         & MANet~\cite{Li_2022}                 & 0.826                             & 0.869                                  & 0.870                               & 0.870                & 0.782                  & 0.870					\\
-		                         & DeepLabv3+~\cite{DBLP:journals/corr/abs-1802-02611}           & ₀₂₀                             & ₀₅₈                                  & ₀₆₆                               & ₀₆₂                & 0.769                	& 0.871                \\
-		                         & PAN~\cite{DBLP:journals/corr/abs-1805-10180}                 & ₀₁₇                             & ₀₆₂                                  & ₀₅₉                               & ₀₆₀                & 0.764                 & 0.870              	\\
-		                         & SegFormer~\cite{xie2021segformer}            & ₀₃４                             & ₀₀０                                  & ₀₄８                               & ₀₁４                & 0.786                 & 0.882                \\
+		                         & DeepLabv3+~\cite{DBLP:journals/corr/abs-1802-02611}           & 0.820                          &  0.858                               & 0.866                              &  0.862            & 0.769                	& 0.871                \\
+		                         & PAN~\cite{DBLP:journals/corr/abs-1805-10180}                 &  0.817                           & 0.862                               &   0.859                            &   0.860             & 0.764                 & 0.870              	\\
+		                         & SegFormer~\cite{xie2021segformer}            &  0.834                           & 0.800                                & 0.848                              & 0.814               & 0.786                 & 0.882                \\
 		\bottomrule{}
 	\end{tabular}
 	\caption{Segmentation performance with self-supervised encoder backbones}
@@ -35,8 +35,8 @@
 	
 \end{table}
 
-\begin{table}\centering\small
-	\begin{tabular}{lrrrrr}\toprule
+\begin{table}\centering\scriptsize
+	\begin{tabular}{lrrrrrr}\toprule
 		\textbf{Model}                        & \textbf{MIoU}  & \textbf{Precision } & \textbf{Recall} & \textbf{F1 Score} &\textbf{FG IOU} &\textbf{BG IOU} \\
 		\midrule
 		U-Net~\cite{ronneberger2015unet}                                & 0.814         & 0.858               & 0.868           & 0.863  &  0.759 & 0.868           \\
