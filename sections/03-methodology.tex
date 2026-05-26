@@ -17,14 +17,64 @@ The Martian landslide detection problem is to develop a segmentation model \( S_
 \end{equation}
 where the multispectral image and corresponding segmentation mask pairs \( (I, M) \) are sampled from the dataset \( D \), and \( \sigma_{\mathrm{sim}}(M_1, M_2) \in \mathbb{R} \) is a similarity metric between two binary segmentation masks \( M_1 \) and \( M_2 \). Concretely, the objective aims to maximize the expected similarity between the segmentation mask predicted by the model and the actual segmentation mask, for all examples in the dataset, by performing an optimization over the model parameters \( \theta \).
 
-\subsection{Joint Embedding Predictive Architectures}
+\subsection{Joint Embedding Predictive Architecture (JEPA)}
 \label{sec:methodology_jepa}
+
+The Joint Embedding Predictive Architecture (JEPA) trains an encoder by applying inductive biases to maximize the information content about the input. In the context of multispectral image encoding, it does so by training an encoder to extract such features from a perturbed version of the image, that enable a lighter predictor module to predict the features of the unperturbed version of the image, conditioned on the perturbation applied to image to form the context. The perturbed image is called the context \( x \), the unperturbed image is called the target \( y \), and the respective features extracted by the encoder \( E_\theta \) are denoted by \( s_x \) and \( s_y \). The predictor module, denoted by \( D_\phi \), conditioned on the perturbation \( z \), outputs a prediction for the target features, denoted by \( \hat{s}_y \). Mathematically,
+\begin{align}
+	s_x                       & = E_\theta(x)           \label{eq:enc-x}                                                  \\
+	s_y                       & = E_\theta(y)           \label{eq:enc-y}                                                  \\
+	\hat{s}_y                 & = D_\phi(s_x, z)        \label{eq:pred-y}                                                 \\
+	\mathcal{L}_\mathrm{pred} & = \mathcal{D}(\hat{s}_y, s_y) \label{eq:pred-loss}                                        \\
+	\theta^\ast, \phi^\ast    & = \underset{\theta, \phi}{\arg\min\ }{\mathcal{L}_\mathrm{pred}}. \label{eq:train-search}
+\end{align}
+In this formulation, \cref{eq:enc-x,eq:enc-y} define the latent encoding of the context and target signals. \Cref{eq:pred-y} describes the predictive step in the latent space. The discrepancy between the predicted and actual target embeddings is quantified in \cref{eq:pred-loss} by a distance metric $\mathcal{D}(\cdot, \cdot)$. Finally, \cref{eq:train-search} defines the optimization objective, where the parameters $\theta$ and $\phi$ are learned by minimizing the prediction error in the latent space. Finally, to prevent latent space collapse in the encoder, we apply the SIGReg regularization~\cite{balestriero2025lejepaprovablescalableselfsupervised} loss to both, the context and target features, \( s_x \) and \( s_y \), calculating the total loss as
+\begin{equation}
+	\mathcal{L}_\mathrm{total} = (1 - \lambda) \mathcal{L}_\mathrm{pred} + \lambda (\mathcal{L}_\mathrm{SIGReg}(s_x) + \mathcal{L}_\mathrm{SIGReg}(s_y)),
+	\label{eq:combined-loss}
+\end{equation}
+where \( \lambda \in [0, 1] \) is a hyperparameter. In \cref{eq:pred-loss}, we use the $L_2$ divergence as the predictive loss divergence metric $\mathcal{D}$.
+
+\begin{figure}
+	\begin{center}
+		\includegraphics[width=0.95\textwidth]{figures/jepa.pdf}
+	\end{center}
+	\caption{Overview of the JEPA architecture}\label{fig:jepa}
+\end{figure}
+
 
 \subsection{Adapting I-JEPA for Multispectral Image Encoding}
 \label{sec:methodology_ijepa}
 
+Adapting the original I-JEPA~\cite{assran2023selfsupervisedlearningimagesjointembedding} framework for learning semantic representations for multispectral images, we treat the multispectral images just like regular RGB images, but with extra channels. As shown in \cref{fig:ijepa}, the context \( x \) is constructed by applying the same patch-wise mask to all channels, while the target \( y \) is the unmasked image, containing information from all patches and channels. We implement the encoder \( E_\theta \) as a vision transformer (ViT)~\cite{dosovitskiy2021an} with learnable patch positional embeddings. The predictor is implemented as a transformer decoder with the positional embeddings of the masked patches as the query and the encodings for the visible patches as the key and value. The output is the prediction for encodings of the masked patches. The predictive loss is calculated by matching the predicted and actual encodings for the masked patches.
+
+\begin{figure}
+	\begin{center}
+		\includegraphics[width=0.95\textwidth]{figures/ijepa.pdf}
+	\end{center}
+	\caption{Masking strategy and predictive loss calculation for the I-JEPA encoder}\label{fig:ijepa}
+\end{figure}
+
+
 \subsection{Spatio-Spectral JEPA}
 \label{sec:methodology_ssjepa}
+
+To learn stronger cross-modal dependencies in the semantic representations, we introduce Spatio-Spectral JEPA (SS-JEPA), which implements channel-wise masking and tokenization in contrast to the common mask and tokenization strategy across all channels, from \cref{sec:methodology_ijepa}. As shown in \cref{fig:ssjepa}, SS-JEPA uses distinct masks per channel, and the encoder outputs patch encodings for each visible patch in each channel. The encoder \( E_\theta \) is implemented as a modified ViT that tokenizes each patch in each channel, unlike the common tokenizer for all channels in I-JEPA. The predictor is a transformer decoder, with the spatial-spectral positional embeddings of the masked patches as queries and the encodings for the visible patches as input. The output is the prediction for the encodings of the masked patches. The predictive loss is calculated as the $L_2$ divergence between the predicted and actual encodings for the masked patches.
+
+Note, here, that a ``patch'' above is associated with a particular channel, unlike I-JEPA. Additionally, the spatial-spectral positional embeddings for each patch is obtained by adding the patch positional embedding for that patch with the corresponding \textit{channel} embedding for that patch. Mathematically,
+\begin{equation}
+	p_{c,j} = \mathbf{P}_\mathrm{spatial}[j] + \mathbf{P}_\mathrm{spectral}[c],
+	\label{eq:ssjepa-posemb}
+\end{equation}
+where \( p_{c,j} \) is the spatial-spectral positional embedding for channel \( c \), for the spatial location indexed by \( j \). Here, \( \mathbf{P}_\mathrm{spatial} \in \mathbb{R}^{n_p \times d} \) and \( \mathbf{P}_\mathrm{spectral} \in \mathbb{R}^{n_c \times d} \) are the spatial and spectral embedding matrices respectively, and \( n_p \) and \( n_c \) are the number of patches and channels in each image, respectively. In our dataset, there are \( n_c = 7 \) bands in the multispectral images.
+
+\begin{figure}
+	\begin{center}
+		\includegraphics[width=0.95\textwidth]{figures/ssjepa.pdf}
+	\end{center}
+	\caption{Masking strategy and predictive loss calculation for the SS-JEPA encoder}\label{fig:ssjepa}
+\end{figure}
+
 
 \subsection{Segmentation Models with Self-Supervised Backbones}
 \label{sec:methodology_segmentation}

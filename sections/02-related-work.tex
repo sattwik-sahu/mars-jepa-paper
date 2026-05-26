@@ -1,6 +1,6 @@
 \section{Related Work}
 \label{sec:related-work}
-The development of a robust landslide detection system for the Martian surface requires an interdisciplinary understanding of computer vision and planetary science. This section reviews recent \cref{sec:Advancement in Semenatic Segmentation}, the specific challenges of \cref{sec:planetary}, and the paradigm shift toward \cref{sec:SSL,sec:Jepa}. 
+The development of a robust landslide detection system for the Martian surface requires an interdisciplinary understanding of computer vision and planetary science. This section reviews recent \cref{sec:Advancement in Semenatic Segmentation}, the specific challenges of \cref{sec:planetary}, and the paradigm shift toward \cref{sec:SSL,sec:Jepa}.
 
 \subsection{Planetary Surface Analysis and Exploration}
 \label{sec:planetary}
@@ -21,10 +21,7 @@ Self-supervised representation learning~\cite{DBLP:journals/corr/abs-2002-05709}
 
 \subsection{Joint Embedding Predictive Architectures (JEPA)}
 \label{sec:Jepa}
-The JEPA framework has recently been propsed as a foundational step toward non-generative alternative for developing world models~\cite{LeCun2022APT}. Unlike generative models, JEPA performs its predictive objective entirely within an abstract representation space, capturing. Following the I-JEPA approach~\cite{assran2023selfsupervisedlearningimagesjointembedding}, our model utilizes an asymmetrical structure consisting of a context encoder, a target encoder, and a predictor.
+The JEPA framework has recently been propsed as a foundational step toward non-generative alternative for developing world models~\cite{lecun2022path}. Unlike generative models, JEPA performs its predictive objective entirely within an abstract representation space, capturing. Following the I-JEPA approach~\cite{assran2023selfsupervisedlearningimagesjointembedding}, our model utilizes an asymmetrical structure consisting of a context encoder, a target encoder, and a predictor.
 
 The context encoder processes visible portions of an image, while the predictor is tasked with estimating the latent embeddings of missing regions. This "prediction in latent space" encourages the network to capture underlying structural and semantic properties. A significant challenge in such self-supervised frameworks is representation collapse—where the encoder converges to a trivial constant output. To maintain feature diversity, methods such as Stochastic Information Gradient Regularization (SIGReg)~\cite{balestriero2025lejepaprovablescalableselfsupervised}, VICReg~\cite{bardes2022vicregvarianceinvariancecovarianceregularizationselfsupervised} are often employed to ensure that learned representations remain informative across multiple input dimensions.
-
-
-
 
