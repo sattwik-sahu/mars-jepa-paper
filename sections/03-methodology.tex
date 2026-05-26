@@ -77,5 +77,12 @@ where \( p_{c,j} \) is the spatial-spectral positional embedding for channel \( 
 
 
 \subsection{Segmentation Models with Self-Supervised Backbones}
-\label{sec:methodology_segmentation}
 
+\label{sec:methodology_segmentation}
+After the self-supervised pre-training phase, the learned encoders are utilized as backbones for downstream landlside segmentation. To achieve this we integrateed the JEPA encoders with the state of the art segmentation heads. To achieve the segmentation objective defined in \cref{sec:3.1},we adapt the Transformer based encoder \( E_\theta \) to work with multiscale convolution decoders. While the decoder outputs a sequence of \(L\)  latent tokens(where \(L\) = \(np\) for I-JEPA and \mathbb{(\(L\) = \( n_p \)times\( n_c \))} most segmentation decoders require a hierarchial feature pyramid. For the SS-JEPA encoder, we first reshape the output sequence to separate the spectral and spatial dimensions. We then aggregate the spectral information via mean pooling to obtain a unified spatial representation of shape(d×np×np)​). This high-level feature map is designated as the bottleneck layer. To provide the multiscale detail necessary for sharp landslide boundaries, we construct a feature pyramid {f0,f1,f2,f3,f4,f5}​}, where f0is the raw multispectral input and subsequent levels are derived through progressive pooling and the extracted latent encodings. We then give them as an input to several supervised learning segmentation architectures. During the downstream task the parameters of the encoder \(E_\theta\) are typically kept frozen to evaluate the quality of self-supervised representations, while the parameters of the segmentation decoder #thetaseg are trained using the supervised objective.
+
+\begin{equation}
+\min_{\phi_{seg}} \sum_{(I,M) \in \mathcal{D}{train}} \mathcal{L}{seg}(S(E_\theta(I); \phi_{seg}), M),
+\end{equation}
+ where (Lseg) is a combination of Binary Cross-Entropy(BCE) and Dice loss.
+The supervised training is carried out on the labelled portions of the MMLSv2 dataset~\cite{mmlsv2_2026}. This two-stage approach—self-supervised pre-training followed by supervised segmentation—allows the model to leverage the vast amount of unlabeled Martian data to improve performance on the final landslide detection task.
