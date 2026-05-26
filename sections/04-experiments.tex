@@ -1,3 +1,151 @@
 \section{Experimental Setup}
 \label{sec:experiments}
 
+This section details the framework used to evaluate the performance of our proposed Spatio-Spectral JEPA model. We start with describing the characteristics of the dataset in\cref{sec:dataset}, the specific implementation and the training strategies in\cref{sec:implementation}, and conclude the section with\cref{sec:metrics} where we list various qualitative and quantitative assessment being to test our propesed model's performance.
+
+\subsection{Dataset Description}
+\label{sec:label}
+Our proposed system was evaluated on the MMLSv2 dataset~\cite{mmlsv2_2026} which provides 128 * 128 GeoTIFF tiles with its corresponding pixel-wise binary landslide segmenatation ground truth mask. Each TIFF tile contains 7 heterogeenous channels derived from distict orbital instruments:
+\begin{enumerate}
+\item \textbf{Thermal Inertia:} Captured via THEMIS (100 m/pixel), providing subsurface structural information.
+\item \textbf{Topography:} A Digital Elevation Model (DEM) and its derived Slope map, blending MOLA and HRSC data (200 m/pixel).
+\item \textbf{Visual Imagery:} A Grayscale CTX channel (6 m/pixel) and a 3-band RGB basemap from the Viking colorized global mosaic (232 m/pixel).
+\end{enumerate}
+
+The public release of the data consists of 465 annotated training tiles and 66 validation tiles. 
+
+For each channel c, the normalized feature x′ is computed as:
+\begin{equation}
+x'_c = \frac{x_c - \mu_c}{\sigma_c}
+\end{equation}
+where μc and σc represent the mean and standard deviation of the c-th modality, respectively. These parameters are stored in a configuration file and applied on-the-fly during data retrieval. This standardization ensures that all spatio-spectral tokens operate within a similar numerical range, which is critical for the stability of the self-attention mechanism and prevents representation collapse during the JEPA pre-training phase.
+
+
+\subsection{Implemnentation Details}
+\label{sec:implementation}
+To evaluate the proposed model I-JEPA and SS-JEPA on the test set of MMLSv2 dataset~\cite{mmlsv2_2026} containing 133 images, the experimental pipeline is divided into two distinct phases:
+\begin{enumerate}
+    \item \itemnf{Spatio-Spectral Pre-Training}: The SS-JEPA model is pretrained on the unlabelled portions of the MMLSv2 dataset~\cite{mmlsv2_2026}. This pretraining phase employs two structurally identical encoders: \textbf{Context Encoder} It receives a heavily masked version of the 7-channel image and since it only sees approximately 15 percent to 50 percent of the spatio-sepctral tokens, it must rely on its internal mechanism to understand the relationship between the visible modalities and the \textbf{Target Encoder} It recieves the complete, unmasked 7-channel image to produce the ground truth latent representation.
+     To prevent "Representation Collapse"—a failure mode where all 1,792 tokens converge to the same mathematical vector—we integrate \textbf{Stochastic Information Gradient Regularization (SIGReg)}. This term acts as a "repulsive force" in the latent space, forcing the learned features of different channels (like the difference between a high-slope DEM patch and a cold Thermal patch) to remain distinct. The total loss is balanced as:
+\begin{equation}
+\mathcal{L}{Total} = (1 - \lambda)\mathcal{L}{MSE} + \lambda\mathcal{L}_{SIGReg}
+\end{equation}
+where, λ is set to 0.02. This detailed training regime ensures that by the time we move to the segmentation task, the encoder already understands how Martian topography relates to spectral textures. Training employed the Adam optimizer with a learning rate of 0.001, weight decay of 0.05 mean-squared-error loss, cosine learning rate scheduler with warmup over a 200 epochs on a single NVIDIA A4500 GPU with 20 GB of VRAM. During the pretraining we employed basic data augmentation using (fill the augmentation here).
+
+    \item \itemnf{Downstream Segmentation}: After pretraining, encoder weights are frozen to evaluate the quality of the learned representations. We used a set of 8 different different segmentation heads which is attached to the encoder's feature pyramid. This segmentation head is finetuned for 50 epochs using a combined loss function of Dice Loss and Binary Cross Entropy.
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
