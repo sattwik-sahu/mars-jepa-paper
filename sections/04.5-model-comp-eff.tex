@@ -1,5 +1,12 @@
 \subsection{Model Complexity and Efficiency}
 \label{sec:model-compl-eff}
 
-\todo[inline]{Show perf vs size scatter plot. Discuss trade-off between size and mIoU and efficiency of JEPA encoder}
+The trade-off between segmentation accuracy and computational complexity is illustrated in the scatter plot in \cref{fig:perf-size-comp}. We compare the parameter counts and validation mIoU of our JEPA-based models against standard supervised baselines and high-capacity ensembles. Our best configuration, SS-JEPA + UPerNet, resides on the Pareto frontier of the performance-to-size ratio. While achieving a competitive $0.865$ mIoU, the model utilizes only $20.0$ million parameters. This represents a $5.6\times$ reduction in model size compared to the DualSwinV2 ensemble~\cite{kabir2026dualswinfusionsegmultimodalmartianlandslide}, which requires $113.0$ million parameters to reach a marginal gain of $0.002$ mIoU.
+
+\begin{figure}
+	\begin{center}
+		\input{figures/perf-size-comp.tex}
+	\end{center}
+	\caption{Performance vs. model size comparison}\label{fig:perf-size-comp}
+\end{figure}
 

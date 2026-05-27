@@ -1,5 +1,11 @@
 \subsection{Comparison with State-of-the-Art}
 \label{sec:comp-sota}
 
-\todo[inline]{Analyse all vs ours table. Focus on perf on par with gigantic models}
+The best-performing segmentation models with both JEPA encoder backbones from \cref{sec:backbone-dec-compat} are compared with established supervised baselines and modern SOTA models for Martian landslide segmentation in \cref{tab:all-vs-ours}. Standard supervised architectures such as U-Net++~\cite{zhou2019unetplusplus}, PSPNet~\cite{zhao2017pyramidsceneparsingnetwork} and DeepLabV3+~\cite{DBLP:journals/corr/abs-1802-02611} and SegFormer~\cite{xie2021segformer} all plateau at an mIoU range of $0.81$-$0.83$. This suggest standard fully-supervised training from scratch in insufficient to fully exploit the complex inter-modal correlations present in multispectral imagery.
+
+Our SS-JEPA + UPerNet model achieves an mIoU of $0.865$, representing a substantial improvement over all single-model supervised baselines. Most notably, our approach surpasses the previous SOTA single-model backbone, DualSwinV2-S~\cite{kabir2026dualswinfusionsegmultimodalmartianlandslide}, by a margin of $3.7\%$ mIoU. Furthermore, our single-model configuration is highly competitive with the 5-fold ensemble of DualSwinV2 models, trailing by only $0.2\%$ mIoU ($0.865$ vs. $0.867$). This indicates that the semantic representations learned via spatio-spectral joint embedding are as robust as those produced by computationally expensive supervised ensembles.
+
+The class-specific metrics like background IoU (BG IoU) and foreground IoU (FG IoU) further validate the reliability of the proposed method. SS-JEPA achieves the highest BG IoU of $0.910$ in the study, indicating superior noise rejection and scene understanding. Its high FG IoU of $0.820$ and balanced precision-recall values indicate that the spatio-spectral joint-embedding objective enables the encoder to learn representations that capture richer geological semantics than those learned through standard supervised objectives. Considering the model complexity analysis in \cref{sec:model-compl-eff}, these results establish the SS-JEPA encoder as a highly efficient alternative to heavy-backbone ensemble architectures for planetary remote sensing tasks.
+
+\input{sections/tables/seg_all-vs-ours.tex}
 
