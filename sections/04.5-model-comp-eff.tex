@@ -1,7 +1,9 @@
 \subsection{Model Complexity and Efficiency}
 \label{sec:model-compl-eff}
 
-The trade-off between segmentation accuracy and computational complexity is illustrated in the scatter plot in \cref{fig:perf-size-comp}. We compare the parameter counts and validation mIoU of our JEPA-based models against standard supervised baselines and high-capacity ensembles. Our best configuration, SS-JEPA + UPerNet, resides on the Pareto frontier of the performance-to-size ratio. While achieving a competitive $0.865$ mIoU, the model utilizes only $20.0$ million parameters. This represents a $5.6\times$ reduction in model size compared to the DualSwinV2 ensemble~\cite{kabir2026dualswinfusionsegmultimodalmartianlandslide}, which requires $113.0$ million parameters to reach a marginal gain of $0.002$ mIoU.
+The relationship between segmentation accuracy and computational complexity is illustrated in \cref{fig:perf-size-comp}, where the SS-JEPA + UPerNet configuration defines the Pareto frontier. While achieving a competitive $0.865$ mIoU, the model utilizes only 20M parameters, representing a $5.6\times$ reduction in size compared to the 113M parameter DualSwinV2 ensemble~\cite{kabir2026dualswinfusionsegmultimodalmartianlandslide}. The marginal performance gain of $0.002$ mIoU provided by the ensemble does not justify the disproportionate increase in computational overhead, establishing the proposed framework as a highly efficient alternative for planetary remote sensing.
+
+The parameter efficiency of the SS-JEPA backbone is further evidenced by its performance relative to supervised baselines and the I-JEPA variant. Specifically, our model outperforms the TinySwin + FPN baseline (33M parameters) by $2.8\%$ mIoU despite being significantly smaller. Furthermore, the transition from I-JEPA to SS-JEPA results in a $15.6\%$ parameter reduction alongside a $2.8\%$ mIoU gain. These results indicate that the spatio-spectral masking strategy enables the encoder to internalize cross-modal dependencies more effectively than visible-spectrum supervised objectives or spatial-only SSL.
 
 \begin{figure}
 	\begin{center}

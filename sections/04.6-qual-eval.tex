@@ -1,5 +1,24 @@
 \subsection{Qualitative Evaluation and Interpretability}
 \label{sec:qual-eval}
 
-\todo[inline]{Interpret latent PCA maps and segmentation visualization}
+This section provides a qualitative analysis of the segmentation performance of models using the JEPA encoder backbones, and the latent representations learned by the JEPA encoders through comprehensive visualizations.
+
+\paragraph{Segementation Performance}
+A qualitative comparison of segmentation masks predicted by the best-performing models from \cref{sec:backbone-dec-compat} is presented in \cref{fig:seg-comp}. The first four columns present the different multispectral input bands (RGB, digital elevation model (DEM), slope and thermal inertial map), and the last three columns compare the segmentation masks from I-JEPA + SegFormer, SS-JEPA + UPerNet and the ground truth from the dataset respectively, overlayed on the grayscale band. The SS-JEPA + UPerNet model consistently shows lower false positives.
+
+\begin{figure}
+	\begin{center}
+		\includegraphics[width=0.95\textwidth]{figures/seg-comp.pdf}
+	\end{center}
+	\caption{Comparison of masks from segmentation models with JEPA encoder backbones}\label{fig:seg-comp}
+\end{figure}
+
+
+\begin{figure}
+	\begin{center}
+		\includegraphics[width=0.95\textwidth]{figures/latents1.pdf}
+		\includegraphics[width=0.95\textwidth]{figures/latents2.pdf}
+	\end{center}
+	\caption{Visualization of patch latent encodings from JEPA encoders}\label{fig:latent-viz}
+\end{figure}
 
