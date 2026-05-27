@@ -1,33 +1,12 @@
 \section{Experimental Evaluation and Results}
 \label{sec:exp-res}
 
-\subsection{Experimental Setup}
-\label{sec:exp-setup}
+In this section, we provide a comprehensive empirical evaluation of the Mars-JEPA framework landslide segmentation from multispectral images. We experimentally evaluate the quality of the semantic representations from encoders and validate the superiority of representations from our SS-JEPA, adapted to the multispectral image domain. The experimental setup is described in \cref{sec:exp-setup}, including the dataset and evaluation protocols, while the implementation details for pre-training and downstream segmentation models is provided in \cref{sec:impl-det}. An extensive ablation study is then presented in \cref{sec:backbone-dec-compat} to identify the optimal pairing of JEPA encoder backbones and segmentation decoders. Subsequently, the best-performing models are compared against established fully-supervised baselines and current state-of-the-art in Martian landslide segmentation, in \cref{sec:comp-sota}. Finally, we analyze the computational efficiency of our approach in comparison to the SOTA in \cref{sec:model-compl-eff} and provide a qualitative analysis of the latent representations learned by our JEPA encoders and the segmentation masks from the best-performing segmentation models in \cref{sec:qual-eval}.
 
-\todo[inline]{Write about dataset and evaluation metrics}
-
-\subsection{Implementation Details}
-\label{sec:impl-det}
-
-\todo[inline]{Write about the pre-training and downstream segmentation training}
-
-\subsection{Backbone and Decoder Compatibility}
-\label{sec:backbone-dec-compat}
-
-\todo[inline]{Analyse I-JEPA, SS-JEPA with decoder head table}
-
-\subsection{Comparison with State-of-the-Art}
-\label{sec:comp-sota}
-
-\todo[inline]{Analyse all vs ours table. Focus on perf on par with gigantic models}
-
-\subsection{Model Complexity and Efficiency}
-\label{sec:model-compl-eff}
-
-\todo[inline]{Show perf vs size scatter plot. Discuss trade-off between size and mIoU and efficiency of JEPA encoder}
-
-\subsection{Qualitative Evaluation and Interpretability}
-\label{sec:qual-eval}
-
-\todo[inline]{Interpret latent PCA maps and segmentation visualization}
+\input{sections/04.1-exp-setup.tex}
+\input{sections/04.2-impl-det.tex}
+\input{sections/04.3-bbone-dec-abla.tex}
+\input{sections/04.4-comp-sota.tex}
+\input{sections/04.5-model-comp-eff.tex}
+\input{sections/04.6-qual-eval.tex}
 
