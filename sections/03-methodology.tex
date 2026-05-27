@@ -77,21 +77,19 @@ where \( p_{c,j} \) is the spatial-spectral positional embedding for channel \( 
 
 \subsection{Segmentation Models with Self-Supervised Backbones}
 \label{sec:methodology_segmentation}
+Following the self-supervised pre-training phase, we integrate the JEPA encoders with a supervised segmentation framework to satisfy the optimization objective defined in \cref{sec:methodology_problem-formulation}. As illustrated in {Fig. 4}, the primary distinction between the two architectures lies in the nature of the latent features provided to the segmenttaion head  \( S_{\text{seg}}\). While I-JEPA generates the spatially aggregated encoding, SS-JEPA preserves the modality-specific information through a channel-wise feature representation. To facilitate this integration, we define a multiscale feature pyramid {[\(f_0\), ..., \(f_5\)]} using the following operations: let $\mathcal{P}^{K \times K}_\mathrm{max}(\cdot)$ denotes the max pooling operation with kernel size \(k\) and stride \(k\). The feature pyramid levels are defined as:
+\begin{align}
+f_0 &= I \in \mathbb{R}^{C \times H \times W} \\
+f_1 &= \mathcal{P}^{2 \times 2}_{\mathrm{max}}(f_0) \\
+f_2 &= \mathcal{P}^{2 \times 2}_{\mathrm{max}}(f_1) \\
+f_3 &= \mathrm{E}_\theta(I) \\
+f_4 &= \mathcal{P}^{2 \times 2}_{\mathrm{max}}(f_3) \\
+f_5 &= \mathcal{P}^{2 \times 2}_{\mathrm{max}}(f_4)
+\end{align}
+In this hierarchy, \(f_0\), \(f_1\), and \(f_2\) serve as high resolution skip connections that preserve sharp topographic edges. The bottleneck layer, \(f_3\) is the point of divergence between the two pre-training strategies. In the \textbf{I-JEPA path}, the encoder treats the multispectral input as a unified spatial cube, resulting in a single feature map where spectral information is collapsed into the channel dimension whereas the \textbf{SS-JEPA path} maintains the integrity of the individual modalities. It outputs a set of \(n_c\) independent feature maps of shape (\(n_c \times d \times h \times w\)) representing the distinct contributions of topographic, visual, and thermal sensors. These maps are subsequently processed by a spectral fusion module \(W_{fuse}\) which performs the integration to synthesize the modal knowledge into a spatial grid. This spatio-spectral input ensures that the segmentation head \(S_{seg}\) recieves a context-rich bottleneck that accounts the cross modal relations learned during pre-training. Finally, \(f_4\) and \(f_5\) provides the global context required for consistent lanslide identification across diverse martian surface.
+
 
 % After the self-supervised pre-training phase, the learned encoders are utilized as backbones for downstream landslide segmentation. To achieve this we integrate the JEPA encoders with state-of-the-art segmentation heads. To achieve the segmentation objective defined in \cref{eq:ls-seg-obj} of \cref{sec:methodology_problem-formulation},we adapt the transformer based encoder \( E_\theta \) to work with multiscale segmentation decoders. While the encoder outputs a sequence of \( L \) latent tokens, most segmentation decoders require a hierarchial feature pyramid. For both the JEPA encoders, we first reshape the output sequence to separate the spectral and spatial dimensions. We then aggregate the spectral information via max pooling to obtain a unified spatial representation of shape \( d \times n_p \times n_c \). This high-level feature map is designated as the bottleneck layer. To provide the multiscale detail necessary for sharp landslide boundaries, we construct a feature pyramid. Given a multispectral input \(I\) and the pre-trained encoder \(E_\theta\), consider $\text{max\_pool}_{k \times k}(\cdot)$ represent a max-pooling operation with stride \(k\). The feature pyramid is defined as:
-
-% \begin{align}
-% 	f_0 & = I \in \mathbb{R}^{C \times H \times W}      \\
-% 	f_1 & = \text{\mathbb{max\_pool}}_{2 \times 2}(f_0) \\
-% 	f_2 & = \text{\mathbb{max\_pool}}_{2 \times 2}(f_1) \\
-% 	f_3 & = \mathrm E_\theta(I)                         \\
-% 	f_4 & = \text{\mathrm{max\_pool}}_{2 \times 2}(f_3) \\
-% 	f_5 & = \text{\mathrm{max\_pool}}_{2 \times 2}(f_4)
-% \end{align}
-
-$\mathcal{P}_\mathrm{max}(\cdot)$ is the latex for a max pooling operation on an feature map.
-
-
 During the downstream task the parameters of the encoder \(E_\theta\) are kept frozen to evaluate the quality of self-supervised representations, while the parameters of the segmentation decoder are trained using the supervised objective defined above.The supervised training is carried out on the labelled portions of the MMLSv2 dataset~\cite{mmlsv2_2026}.
 
 This two-stage approach—self-supervised pre-training followed by supervised segmentation—allows the model to leverage the vast amount of unlabeled Martian data to improve performance on the final landslide detection task.
