@@ -1,5 +1,12 @@
 \subsection{Experimental Setup}
 \label{sec:exp-setup}
+The proposed framework described in \cref{sec:methodology} was evaluated on the MMLSv2 dataset~\cite{mmlsv2_2026}, a multimodal Martian landslide segmentation benchmark consisting of co-registered \(128 \times 128\) GeoTIFF tiles. Each sample contains seven heterogeneous sensing channels, including Thermal Inertia (THEMIS, \(\sim100\) m/pixel), Slope maps derived from DEM data, Digital Elevation Models (MOLA/HRSC, \(\sim200\) m/pixel), Grayscale imagery from CTX (\(\sim6\) m/pixel), and a three-channel RGB basemap generated from Viking mosaics (\(\sim232\) m/pixel).
 
-The evaluation of our framework proposed in \cref{sec:methodology} is done on the MMLSv2 dataset~\cite{mmlsv2_2026}. The dataset contains co-registered 128*128 GeoTIFF tiles featuring seven heterogeneous channels: Thermal Inertia (THEMIS, ~100m/pixel), Slope (derived from DEM), Digital Elevation Model (MOLA/HRSC, ~200m/pixel), Grayscale Imagery (CTX, ~6m/pixel), and a three-channel RGB basemap (Viking mosiac, ~232m/pixel). The publicly available split of the dataset contains 465 labeled training samples and 66 labeled validation samples.
+The publicly available split of the dataset contains \(465\) labeled training samples and \(66\) labeled validation samples. Owing to the heterogeneous nature of the sensing modalities and the varying numerical distributions across channels, all multispectral inputs were preprocessed using channel-wise normalization prior to training.Let the multimodal input sample be represented as X = \(x_1, x_2, \dots, x_C\) where \(C\) denotes the total number of channels across all modalities. For each channel \(x_c\), normalization was performed using the precomputed channel mean \(\mu_c\) and standard deviation \(\sigma_c\) estimated from the training set statistics. The normalized feature representation \(\hat{x}_c\) is computed as
 
+\begin{equation}
+\hat{x}_c =\frac{x_c - \mu_c}{\sigma_c}
+\label{eq:normalization}
+\end{equation}
+
+This normalization strategy ensures numerical stability during optimization while reducing distributional discrepancies between the heterogeneous multispectral sensing modalities.

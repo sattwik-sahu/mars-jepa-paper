@@ -1,5 +1,13 @@
 \subsection{Implementation Details}
 \label{sec:impl-det}
 
-\todo[inline]{Write about the pre-training and downstream segmentation training}
+The proposed SS-JEPA framework was trained for 100 epochs using the AdamW optimizer in conjunction with a cosine annealing learning-rate scheduler and linear warmup on a single NVIDIA A4500 GPU with 20\,GB VRAM. To improve the robustness and generalization capability of the learned spatio-spectral representations across heterogeneous multispectral modalities, several stochastic spatial augmentations were applied during training. These augmentations included random horizontal flipping, random vertical flipping, random rotations within \([-90^\circ,90^\circ]\), random resized cropping, and additive Gaussian noise perturbations.
 
+During self-supervised pre-training, a uniform masking strategy was employed over the spatio-spectral token space. Let \(N\) denote the total number of generated tokens. A subset of visible tokens \(M_{\mathrm{keep}}\) and masked tokens \(M_{\mathrm{drop}}\) were sampled according to a masking ratio \(r\), which was progressively varied between \(0.5\) and \(0.85\) throughout training. Furthermore, the latent space was regularized using the SIGReg objective~\cite{balestriero2025lejepaprovablescalableselfsupervised} with a regularization weight of \lambda_{\mathrm{sigreg}} = 0.3.
+
+
+Following self-supervised pre-training, the learned encoder weights were transferred to downstream segmentation architectures for semantic landslide segmentation. The segmentation heads were trained for 50 epochs with a learning rate of \(0.001\) on the same NVIDIA A4500 GPU setup with 20\,GB VRAM. Similar optimization strategies were adopted during downstream training, including the AdamW optimizer, cosine annealing learning-rate scheduling with linear warmup, and mixed-precision training using bfloat16 automatic casting to improve computational efficiency and memory utilization.
+
+Unlike the self-supervised pre-training stage, no image augmentations were applied during segmentation-head training. During validation, the predicted logits from the segmentation heads were converted into binary segmentation masks using sigmoid activation followed by a threshold value of \(0.5\). The segmentation performance was quantitatively evaluated using Precision, Recall, F1-score, foreground IoU, background IoU, and mean Intersection-over-Union (mIoU).
+
+In addition to quantitative evaluation, extensive qualitative analyses were also performed, including visualization of segmentation outputs, performance and parameter analysis plots, and latent-space visualizations obtained from the pretrained encoder representations. These qualitative results are discussed further in \cref{sec:exp-res}.
