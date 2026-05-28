@@ -8,19 +8,6 @@
   year = {2007},
 }
 
-@article{DBLP:journals/corr/RonnebergerFB15,
-  author = {Olaf Ronneberger and Philipp Fischer and Thomas Brox},
-  title = {U-Net: Convolutional Networks for Biomedical Image Segmentation},
-  journal = {CoRR},
-  volume = {abs/1505.04597},
-  year = {2015},
-  url = {http://arxiv.org/abs/1505.04597},
-  eprinttype = {arXiv},
-  eprint = {1505.04597},
-  timestamp = {Mon, 13 Aug 2018 16:46:52 +0200},
-  biburl = {https://dblp.org/rec/journals/corr/RonnebergerFB15.bib},
-  bibsource = {dblp computer science bibliography, https://dblp.org},
-}
 @article{zhou2019unetplusplus,
   title = {UNet++: Redesigning Skip Connections to Exploit Multiscale Features
            in Image Segmentation},
@@ -30,6 +17,7 @@
   year = {2019},
   publisher = {IEEE},
 }
+
 @article{DBLP:journals/corr/abs-1805-10180,
   author = {Hanchao Li and Pengfei Xiong and Jie An and Lingxue Wang},
   title = {Pyramid Attention Network for Semantic Segmentation},
@@ -85,6 +73,7 @@
   primaryclass = {cs.CV},
   url = {https://arxiv.org/abs/1606.00915},
 }
+
 @misc{kabir2026dualswinfusionsegmultimodalmartianlandslide,
   title = {DualSwinFusionSeg: Multimodal Martian Landslide Segmentation via Dual
            Swin Transformer with Multi-Scale Fusion and UNet++},
@@ -96,6 +85,7 @@
   primaryclass = {cs.CV},
   url = {https://arxiv.org/abs/2603.14132},
 }
+
 @misc{zhao2017pyramidsceneparsingnetwork,
   title = {Pyramid Scene Parsing Network},
   author = {Hengshuang Zhao and Jianping Shi and Xiaojuan Qi and Xiaogang Wang
@@ -106,21 +96,7 @@
   primaryclass = {cs.CV},
   url = {https://arxiv.org/abs/1612.01105},
 }
-@article{DBLP:journals/corr/abs-2105-15203,
-  author = {Enze Xie and Wenhai Wang and Zhiding Yu and Anima Anandkumar and Jos
-            {\'{e}} M. {\'{A}}lvarez and Ping Luo},
-  title = {SegFormer: Simple and Efficient Design for Semantic Segmentation with
-           Transformers},
-  journal = {CoRR},
-  volume = {abs/2105.15203},
-  year = {2021},
-  url = {https://arxiv.org/abs/2105.15203},
-  eprinttype = {arXiv},
-  eprint = {2105.15203},
-  timestamp = {Sat, 01 Jul 2023 10:38:36 +0200},
-  biburl = {https://dblp.org/rec/journals/corr/abs-2105-15203.bib},
-  bibsource = {dblp computer science bibliography, https://dblp.org},
-}
+
 @article{Li_2022,
   title = {Multiattention Network for Semantic Segmentation of Fine-Resolution
            Remote Sensing Images},
@@ -151,22 +127,23 @@
   bibsource = {dblp computer science bibliography, https://dblp.org},
 }
 
-@article{ghorbanzadeh2019deep,
-  title = {Deep learning for landslide detection--A case study},
-  author = {Ghorbanzadeh, Omid and others},
-  journal = {Landslides},
-  volume = {16},
-  pages = {1961--1982},
-  year = {2019},
-}
 @inproceedings{xie2021segformer,
+  author = {Xie, Enze and Wang, Wenhai and Yu, Zhiding and Anandkumar, Anima and
+            Alvarez, Jose M. and Luo, Ping},
+  booktitle = {Advances in Neural Information Processing Systems},
+  editor = {M. Ranzato and A. Beygelzimer and Y. Dauphin and P.S. Liang and J.
+            Wortman Vaughan},
+  pages = {12077--12090},
+  publisher = {Curran Associates, Inc.},
   title = {SegFormer: Simple and Efficient Design for Semantic Segmentation with
            Transformers},
-  author = {Xie, Enze and Wang, Wenhai and Yu, Zhiding and Anandkumar, Anima and
-            Alvarez, Jose M and Luo, Ping},
-  booktitle = {Neural Information Processing Systems (NeurIPS)},
+  url = {
+         https://proceedings.neurips.cc/paper_files/paper/2021/file/64f1f27bf1b4ec22924fd0acb550c235-Paper.pdf
+         },
+  volume = {34},
   year = {2021},
 }
+
 @misc{oshea2015introductionconvolutionalneuralnetworks,
   title = {An Introduction to Convolutional Neural Networks},
   author = {Keiron O'Shea and Ryan Nash},
@@ -176,6 +153,7 @@
   primaryclass = {cs.NE},
   url = {https://arxiv.org/abs/1511.08458},
 }
+
 @misc{assran2023selfsupervisedlearningimagesjointembedding,
   title = {Self-Supervised Learning from Images with a Joint-Embedding
            Predictive Architecture},
@@ -188,6 +166,7 @@
   primaryclass = {cs.CV},
   url = {https://arxiv.org/abs/2301.08243},
 }
+
 @misc{balestriero2025lejepaprovablescalableselfsupervised,
   title = {LeJEPA: Provable and Scalable Self-Supervised Learning Without the
            Heuristics},
@@ -228,10 +207,17 @@
 }
 
 @inproceedings{ronneberger2015unet,
-  title = {U-Net: Convolutional Networks for Biomedical Image Segmentation},
-  author = {Ronneberger, Olaf and Fischer, Philipp and Brox, Thomas},
-  booktitle = {MICCAI},
-  year = {2015},
+  author = "Ronneberger, Olaf and Fischer, Philipp and Brox, Thomas",
+  editor = "Navab, Nassir and Hornegger, Joachim and Wells, William M. and
+            Frangi, Alejandro F.",
+  title = "U-Net: Convolutional Networks for Biomedical Image Segmentation",
+  booktitle = "Medical Image Computing and Computer-Assisted Intervention --
+               MICCAI 2015",
+  year = "2015",
+  publisher = "Springer International Publishing",
+  address = "Cham",
+  pages = "234--241",
+  isbn = "978-3-319-24574-4",
 }
 
 @article{hondru2025maskedimagemodelingsurvey,
@@ -298,11 +284,14 @@
   bibsource = {dblp computer science bibliography, https://dblp.org},
 }
 
-@inproceedings{
-dosovitskiy2021an,
-title={An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale},
-author={Alexey Dosovitskiy and Lucas Beyer and Alexander Kolesnikov and Dirk Weissenborn and Xiaohua Zhai and Thomas Unterthiner and Mostafa Dehghani and Matthias Minderer and Georg Heigold and Sylvain Gelly and Jakob Uszkoreit and Neil Houlsby},
-booktitle={International Conference on Learning Representations},
-year={2021},
-url={https://openreview.net/forum?id=YicbFdNTTy}
+@inproceedings{dosovitskiy2021an,
+  title = {An Image is Worth 16x16 Words: Transformers for Image Recognition at
+           Scale},
+  author = {Alexey Dosovitskiy and Lucas Beyer and Alexander Kolesnikov and Dirk
+            Weissenborn and Xiaohua Zhai and Thomas Unterthiner and Mostafa
+            Dehghani and Matthias Minderer and Georg Heigold and Sylvain Gelly
+            and Jakob Uszkoreit and Neil Houlsby},
+  booktitle = {International Conference on Learning Representations},
+  year = {2021},
+  url = {https://openreview.net/forum?id=YicbFdNTTy},
 }
