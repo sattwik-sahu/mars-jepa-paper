@@ -1,0 +1,37 @@
+\begin{tikzpicture}
+	\begin{axis}[
+			xlabel={Latent Dimension},
+			ylabel={Singular Value},
+			grid=major,
+			width=10cm,
+			height=7cm,
+			legend pos=north east,
+			legend cell align=left,
+		]
+
+		\addplot[
+			Amaranth,
+			line width=2pt,
+			mark=none
+		]
+		table[
+				x expr=\coordindex+1,
+				y index=0
+			] {figures/svd-plot/ijepa-svd.dat};
+
+		\addlegendentry{I-JEPA}
+
+		\addplot[
+			BalticBlue,
+			line width=2pt,
+			mark=none
+		]
+		table[
+				x expr=\coordindex+1,
+				y index=0
+			] {figures/svd-plot/ssjepa-svd.dat};
+
+		\addlegendentry{SS-JEPA}
+
+	\end{axis}
+\end{tikzpicture}
