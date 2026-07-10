@@ -17,7 +17,6 @@ The Martian landslide detection problem is to develop a segmentation model \( S_
 \end{equation}
 where the multispectral image and corresponding segmentation mask pairs \( (I, M) \) are sampled from the dataset \( D \), and \( \sigma_{\mathrm{sim}}(M_1, M_2) \in \mathbb{R} \) is a similarity metric between two binary segmentation masks \( M_1 \) and \( M_2 \). The aim is to maximize the expected similarity between the predicted segmentation mask and the actual segmentation mask, for all examples in the dataset, by performing an optimization over the model parameters \( \gamma \).
 
-
 \subsection{Joint Embedding Predictive Architecture (JEPA)}
 \label{sec:methodology_jepa}
 
