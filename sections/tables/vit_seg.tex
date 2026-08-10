@@ -1,0 +1,16 @@
+\begin{table}
+	\centering
+	\scriptsize % Reduces font size to save space
+	\setlength{\tabcolsep}{3pt} % Tightly packs the columns
+	\vspace{-1.5em}
+	\caption{Segmentation Decoder Performance with ViT encoder. Standard deviation (SD) taken over 5 runs}
+	\label{tab:decoders}
+	\begin{tabular}{lcccccc}
+		\toprule
+		\textbf{Model} & \textbf{mIoU} & \textbf{Precision} & \textbf{Recall} & \textbf{F1 Score} & \textbf{FG IoU} & \textbf{BG IoU} \\
+		\midrule
+		UPerNet        & 0.8210        & 0.8670             & 0.8710          & 0.8690            & 0.7690          & 0.8730          \\
+		\bottomrule
+	\end{tabular}
+	\vspace{-1.5em}
+\end{table}

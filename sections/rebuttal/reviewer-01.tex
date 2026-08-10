@@ -1,0 +1,30 @@
+\noindent{\textbf{Consistent Gains and Significance.}}
+\Cref{tab:decoder-comparison} shows superior performance of SS-JEPA in seven out of eight comparisons. The standard deviations reported were calculated over 5 runs. We agree that checking statistical significance is valuable and thank the reviewers for pointing it out.
+
+\noindent{\textbf{FLOPs Comparison.}}
+A comparison between the different models' performance and complexity in terms of FLOPs in provided in~\cref{fig:gflops-size-comp}. The FLOPs calculated in~\cref{fig:gflops-size-comp} are from our implementation of the methods, reproduced as accurately as possible. Additionally, the metrics requested for the TinySwin+FPN configuration are reported in~\cref{tab:tinyswin}.
+
+\begin{table}
+	\caption{TinySwin+FPN Metrics}\label{tab:tinyswin}
+	\vspace{-1.5em}
+	\begin{center}
+		\scriptsize{}
+		\begin{tabular}{cccccc}
+			\toprule
+			\textbf{mIoU} & \textbf{Precision} & \textbf{Recall} & \textbf{F1-score} & \textbf{FG IoU} & \textbf{BG IoU} \\
+
+			\midrule
+			0.8320        & 0.8420             & 0.8924          & 0.8660            & 0.7900          & 0.8740          \\
+			\bottomrule
+		\end{tabular}
+	\end{center}
+	\vspace{-1.9em}
+\end{table}
+
+\noindent\textbf{Masking-strategy ablation.} We agree this is valuable; we
+will add a discussion of alternative spatio-spectral masking ratios as future
+work in Sec.~5.
+
+\noindent\textbf{Readability.} Thank you, we will fix the noted
+parenthetical and proofread the full manuscript for the camera-ready version.
+

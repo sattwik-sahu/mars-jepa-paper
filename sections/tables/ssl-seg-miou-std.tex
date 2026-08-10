@@ -1,0 +1,23 @@
+\begin{table}
+	\centering
+	\scriptsize{}
+	\caption{mIoU (mean $\pm$ std over 5 random seeds) by segmentation head and backbone.}
+	\label{tab:decoder-comparison}
+	\vspace{-1em}
+	\begin{tabular}{lcc}
+		\toprule
+		\multirow{2}{*}{\textbf{Segmentation Head}} & \multicolumn{2}{c}{\textbf{Encoder}}                                \\
+		\cmidrule(lr){2-3}
+		                                            & \textbf{SS-JEPA}                     & \textbf{IJEPA}               \\
+		\midrule
+		UPerNet                                     & \textbf{0.8637 $\pm$ 0.0057}         & 0.8369 $\pm$ 0.0021          \\
+		UNet++                                      & \textbf{0.8517 $\pm$ 0.0028}         & 0.8381 $\pm$ 0.0031          \\
+		UNet                                        & \textbf{0.8511 $\pm$ 0.0062}         & 0.8319 $\pm$ 0.0017          \\
+		SegFormer                                   & 0.8237 $\pm$ 0.0030                  & \textbf{0.8411 $\pm$ 0.0066} \\
+		FPN                                         & \textbf{0.8499 $\pm$ 0.0050}         & 0.8402 $\pm$ 0.0009          \\
+		MAnet                                       & \textbf{0.8456 $\pm$ 0.0091}         & 0.8164 $\pm$ 0.0102          \\
+		PAN                                         & \textbf{0.8398 $\pm$ 0.0000}         & 0.8273 $\pm$ 0.0063          \\
+		DeepLabV3+                                  & \textbf{0.8396 $\pm$ 0.0025}         & 0.8288 $\pm$ 0.0043          \\
+		\bottomrule
+	\end{tabular}
+\end{table}
