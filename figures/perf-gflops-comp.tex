@@ -3,12 +3,12 @@
 			scale only axis, % ADD THIS TO BOTH
 			width=0.85\textwidth,
 			height=5.0cm, % Slightly reduced since the grid itself will now be this tall
-			xlabel={Model Parameters (in millions)}, % (Keep your respective labels)
-			ylabel={mIoU on Validation Dataset},
+			xlabel={Model Complexity (GFLOPS)}, % (Keep your respective labels)
+			ylabel={},
 			grid=both,
 			grid style={line width=.1pt, draw=Gray!10},
 			major grid style={line width=.2pt, draw=Gray!30},
-			xmin=-15, xmax=125, % (Or 165 for the second graph)
+			xmin=-15, xmax=145, % (Or 165 for the second graph)
 			ymin=0.80, ymax=0.88, % MAKE SURE BOTH SAY 0.80
 			legend pos=south east,
 			% Condensed legend to save plot space
@@ -31,14 +31,13 @@
 			mark=square*,
 			mark size=3pt,
 			BlueViolet,
-			every node near coord/.append style={xshift=-10pt, yshift=3pt}
+			every node near coord/.append style={xshift=-15pt}
 		] table [meta=label] {
 				x   y   label
-				113.0 0.867 {DualSwinV2 + U-Net++ \\ (113M)}
-				113.0 0.828 {DualSwinV2-S + Hybrid \\ (113M)}
+				135.0 0.867 {DualSwinV2 + U-Net++ \\ (135G)}
+				135.0 0.828 {DualSwinV2-S + Hybrid \\ (135G)}
 			};
 		\addlegendentry{DualSwinV2 Baselines}
-
 
 		% Data for TinySwin + FPN
 		\addplot[
@@ -46,10 +45,10 @@
 			mark=triangle*,
 			mark size=4pt,
 			PineGreen,
-			every node near coord/.append style={anchor=south, xshift=10pt}
+			every node near coord/.append style={anchor=north, yshift=-2pt}
 		] table [meta=label] {
 				x   y   label
-				33.0 0.837 {TinySwin + FPN \\ (33M)}
+				10.0 0.837 {TinySwin + FPN \\ (10G)}
 			};
 		\addlegendentry{TinySwin + FPN}
 
@@ -59,10 +58,10 @@
 			mark=diamond*,
 			mark size=4pt,
 			BrickRed,
-			every node near coord/.append style={anchor=east, xshift=14pt, yshift=8pt}
+			every node near coord/.append style={anchor=east, xshift=12pt, yshift=-11pt}
 		] table [meta=label] {
 				x   y   label
-				20.0 0.865 {\textbf{SS-JEPA + UPerNet} \\ (20M)}
+				120.5 0.865 {\textbf{SS-JEPA + UPerNet} \\ (120.5G)}
 			};
 		\addlegendentry{JEPA-based (Ours)}
 
@@ -73,10 +72,10 @@
 			mark size=4pt,
 			BrickRed,
 			forget plot,
-			every node near coord/.append style={anchor=north, yshift=-4pt}
+			every node near coord/.append style={anchor=west, xshift=-12pt, yshift=7pt}
 		] table [meta=label] {
 				x   y   label
-				23.7 0.837 {I-JEPA + SegFormer \\ (23.7M)}
+				41.7 0.837 {I-JEPA + SegFormer \\ (41.7G)}
 			};
 	\end{axis}
 \end{tikzpicture}

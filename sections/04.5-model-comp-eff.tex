@@ -1,14 +1,38 @@
 \subsection{Model Complexity and Efficiency}
 \label{sec:model-compl-eff}
 
-The relationship between segmentation accuracy and computational complexity is illustrated in \cref{fig:perf-size-comp}, where the SS-JEPA + UPerNet configuration defines the Pareto frontier. Despite being 5.6$\times$ smaller than the 113M parameter DualSwinV2 ensemble~\cite{kabir2026dualswinfusionsegmultimodalmartianlandslide}, our 20M parameter model achieves a competitive 0.865 mIoU. The ensemble's marginal lead of 0.2\% mIoU requires a disproportionate increase in model size, making our single-model approach a more practical candidate for the low-power hardware typical of planetary exploration platforms.
+The relationship between segmentation accuracy and computational complexity is illustrated in \cref{fig:main_results}, where the SS-JEPA + UPerNet configuration defines the Pareto frontier. Despite being 5.6$\times$ smaller than the 113M parameter DualSwinV2 ensemble~\cite{kabir2026dualswinfusionsegmultimodalmartianlandslide}, our 20M parameter model achieves a competitive 0.865 mIoU. Furthermore, as shown in \cref{fig:perf-gflops-comp}, this efficiency extends to inference cost, with our model requiring 120.5 GFLOPs compared to the ensemble's 135 GFLOPs. The ensemble's marginal lead of 0.2\% mIoU requires a massive increase in model size alongside a higher computational footprint, making our single-model approach a more practical candidate for the low-power hardware typical of planetary exploration platforms.
 
 The parameter efficiency of the SS-JEPA backbone is further evidenced by its performance relative to supervised baselines and the I-JEPA variant. Specifically, our model outperforms the TinySwin + FPN baseline (33M parameters) by $2.8\%$ mIoU despite being significantly smaller. Furthermore, the transition from I-JEPA to SS-JEPA results in a $15.6\%$ parameter reduction alongside a $2.8\%$ mIoU gain. These results indicate that the spatio-spectral masking strategy enables the encoder to internalize cross-modal dependencies more effectively than visible-spectrum supervised objectives or spatial-only SSL.
 
-\begin{figure}
-	\begin{center}
-		\input{figures/perf-size-comp.tex}
-	\end{center}
-	\caption{Performance vs. model size comparison}\label{fig:perf-size-comp}
-\end{figure}
+% \begin{figure}
+% 	\begin{center}
+% 		\input{figures/perf-size-comp.tex}
+% 	\end{center}
+% 	\caption{Performance vs. model size comparison}\label{fig:perf-size-comp}
+% \end{figure}
 
+\begin{figure}
+	\centering
+
+	% First graph (a)
+	\subfigure[\label{fig:perf-size-comp}]{
+		\begin{minipage}{0.47\textwidth}
+			\centering
+			\input{figures/perf-size-comp.tex}
+			\vspace{-1em}
+		\end{minipage}
+	}
+	\hfill
+	% Second graph (b)
+	\subfigure[\label{fig:perf-gflops-comp}]{
+		\begin{minipage}{0.47\textwidth}
+			\centering
+			\input{figures/perf-gflops-comp.tex}
+			\vspace{-1em}
+		\end{minipage}
+	}
+
+	\caption{Efficiency and performance trade-offs on the validation dataset. \textbf{(a)} Comparison of model memory footprint (Parameters). \textbf{(b)} Comparison of computational complexity (GFLOPs).}
+	\label{fig:main_results}
+\end{figure}

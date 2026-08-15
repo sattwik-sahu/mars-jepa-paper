@@ -1,21 +1,21 @@
 \section{Methodology}
 \label{sec:methodology}
 
-In this work, we study the downstream performance on segementation tasks for two JEPAs trained with different tokenization masking strategies, on multispectral images. This section details the formulation and development of the self-supervised models for segmentation as follows: \cref{sec:methodology_problem-formulation} formulates the landslide segmentation problem on multispectral images; \cref{sec:methodology_jepa} provides an overview of the general architecture and methodology to train a JEPA encoder; \cref{sec:methodology_ijepa} discusses the adaptation of the I-JEPA~\cite{assran2023selfsupervisedlearningimagesjointembedding} architecture for multispectral images; \cref{sec:methodology_ssjepa} provides a novel spatial-spectral masking strategy for training JEPAs on multispectral images, and finally \cref{sec:methodology_segmentation} discusses the integration of the JEPA encoders with SOTA segmentation architectures for landslide segmentation on the Martian surface.
+In this work, we study the downstream performance on segementation tasks for two JEPAs trained with different tokenization masking strategies, on multispectral images. This section details the formulation and development of the self-supervised models for segmentation as follows: \cref{sec:methodology_jepa} provides an overview of the general architecture and methodology to train a JEPA encoder; \cref{sec:methodology_ijepa} discusses the adaptation of the I-JEPA~\cite{assran2023selfsupervisedlearningimagesjointembedding} architecture for multispectral images; \cref{sec:methodology_ssjepa} provides a novel spatial-spectral masking strategy for training JEPAs on multispectral images, and finally \cref{sec:methodology_segmentation} discusses the integration of the JEPA encoders with SOTA segmentation architectures for landslide segmentation on the Martian surface.
 
-\subsection{Problem Formulation}
-\label{sec:methodology_problem-formulation}
-
-Consider a multispectral image \( I \in \mathbb{R}^{C \times H \times W} \), where \( C \) is the number of bands, \( H, W \) are the height and width of the image respectively. We define a binary segmentation mask \( M \in \{0, 1\}^{H \times W} \) over the pixels in the image, where a pixel \( M[i, j] \) at row $i$ and column $j$ in the segmentation mask \( M \) has a value of $1$ if it is predicted to be affected by a landslide, and $0$ otherwise.
-
-The Martian landslide detection problem is to develop a segmentation model \( S_{\gamma}: \mathbb{R}^{C \times H \times W} \to \{0, 1\}^{H \times W} \), parameterized by \( \gamma \), to satisfy the objective
-\begin{equation}
-	\underset{\gamma}{\max\ }{\mathbb{E}_{(I, M) \sim D}\left[
-	\sigma_\mathrm{sim}(S_\gamma(I), M)
-	\right]},
-	\label{eq:ls-seg-obj}
-\end{equation}
-where the multispectral image and corresponding segmentation mask pairs \( (I, M) \) are sampled from the dataset \( D \), and \( \sigma_{\mathrm{sim}}(M_1, M_2) \in \mathbb{R} \) is a similarity metric between two binary segmentation masks \( M_1 \) and \( M_2 \). Concretely, the objective aims to maximize the expected similarity between the segmentation mask predicted by the model and the actual segmentation mask, for all examples in the dataset, by performing an optimization over the model parameters \( \gamma \).
+% \subsection{Problem Formulation}
+% \label{sec:methodology_problem-formulation}
+%
+% Consider a multispectral image \( I \in \mathbb{R}^{C \times H \times W} \), where \( C \) is the number of bands, \( H, W \) are the height and width of the image respectively. We define a binary segmentation mask \( M \in \{0, 1\}^{H \times W} \) over the pixels in the image, where a pixel \( M[i, j] \) at row $i$ and column $j$ in the segmentation mask \( M \) has a value of $1$ if it is predicted to be affected by a landslide, and $0$ otherwise.
+%
+% The Martian landslide detection problem is to develop a segmentation model \( S_{\gamma}: \mathbb{R}^{C \times H \times W} \to \{0, 1\}^{H \times W} \), parameterized by \( \gamma \), to satisfy the objective
+% \begin{equation}
+% 	\underset{\gamma}{\max\ }{\mathbb{E}_{(I, M) \sim D}\left[
+% 	\sigma_\mathrm{sim}(S_\gamma(I), M)
+% 	\right]},
+% 	\label{eq:ls-seg-obj}
+% \end{equation}
+% where the multispectral image and corresponding segmentation mask pairs \( (I, M) \) are sampled from the dataset \( D \), and \( \sigma_{\mathrm{sim}}(M_1, M_2) \in \mathbb{R} \) is a similarity metric between two binary segmentation masks \( M_1 \) and \( M_2 \). Concretely, the objective aims to maximize the expected similarity between the segmentation mask predicted by the model and the actual segmentation mask, for all examples in the dataset, by performing an optimization over the model parameters \( \gamma \).
 
 \subsection{Joint Embedding Predictive Architecture (JEPA)}
 \label{sec:methodology_jepa}
@@ -95,14 +95,14 @@ The segmentation model is trained using a hybrid objective function that combine
 \begin{align}
 	\mathcal{L}_{\mathrm{seg}}  & = \mathcal{L}_{\mathrm{Dice}} + \mathcal{L}_{\mathrm{BCE}} \\
 	\mathcal{L}_{\mathrm{Dice}} & = 1 - \frac{
-		2 \sum_{i=1}^{N} \hat{M}_i M_i + \epsilon
-	}{
-		\sum_{i=1}^{N} \hat{M}_i
-		+
-		\sum_{i=1}^{N} M_i
-		+
-		\epsilon
-	}                                                                                        \\
+		                                    2 \sum_{i=1}^{N} \hat{M}_i M_i + \epsilon
+	                                    }{
+		                                    \sum_{i=1}^{N} \hat{M}_i
+		                                    +
+		                                    \sum_{i=1}^{N} M_i
+		                                    +
+		                                    \epsilon
+	                                    }            \\
 	\mathcal{L}_{\mathrm{BCE}}
 	                            & =
 	-
