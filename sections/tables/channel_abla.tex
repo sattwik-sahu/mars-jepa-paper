@@ -1,0 +1,19 @@
+\begin{table}
+	\centering
+	\begin{tabular}{cccccc}
+		\toprule
+		\textbf{RGB} & \textbf{Gray} & \textbf{DEM} & \textbf{Slope} & \textbf{Thermal} & \textbf{mIoU}  \\
+		\midrule
+		\checkmark   & \checkmark    &              &                &                  & 0.812          \\
+		             &               & \checkmark   & \checkmark     &                  & 0.835          \\
+		\checkmark   & \checkmark    & \checkmark   &                &                  & 0.841          \\
+		\checkmark   & \checkmark    & \checkmark   & \checkmark     &                  & 0.854          \\
+		             &               & \checkmark   & \checkmark     & \checkmark       & 0.846          \\
+		\midrule
+		\checkmark   & \checkmark    & \checkmark   & \checkmark     & \checkmark       & \textbf{0.865} \\
+		\bottomrule
+	\end{tabular}
+	\vspace{0.5em}
+	\caption{Channel Ablation Study of the SS-JEPA + UPerNet Segmenation Model Configuration}
+	\label{tab:channel_ablation}
+\end{table}
