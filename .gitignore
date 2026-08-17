@@ -316,3 +316,7 @@ TSWLatexianTemp*
 /.bak/
 /build/
 /*.pdf
+
+.devcontainer/
+.github/
+.gitlab-ci.yml
