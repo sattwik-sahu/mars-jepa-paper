@@ -321,3 +321,7 @@ TSWLatexianTemp*
 .devcontainer/
 .github/
 .gitlab-ci.yml
+# Dev Container / CI local files
+.devcontainer/
+.github/
+.gitlab-ci.yml
