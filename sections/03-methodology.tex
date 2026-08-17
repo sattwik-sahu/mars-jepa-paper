@@ -37,16 +37,16 @@ where \( \lambda \in [0, 1] \) is a hyperparameter. In \cref{eq:pred-loss}, we u
 
 \begin{figure}
 	\begin{center}
-		\includegraphics[width=0.95\textwidth]{figures/jepa.pdf}
+		\includegraphics[width=0.8\textwidth]{figures/jepa.pdf}
 	\end{center}
 	\caption{Overview of the JEPA architecture}\label{fig:jepa}
 \end{figure}
 
 
-\subsection{Adapting I-JEPA for Multispectral Image Encoding}
+\subsection{I-JEPA Baseline for Multispectral Image Encoding}
 \label{sec:methodology_ijepa}
 
-Adapting the original I-JEPA~\cite{assran2023selfsupervisedlearningimagesjointembedding} framework for learning semantic representations for multispectral images, we treat the multispectral images just like regular RGB images, but with extra channels. As shown in \cref{fig:ijepa}, the context \( x \) is constructed by applying the same patch-wise mask to all channels, while the target \( y \) is the unmasked image, containing information from all patches and channels. We implement the encoder \( E_\theta \) as a vision transformer (ViT)~\cite{dosovitskiy2021an} with learnable patch positional embeddings. The predictor is implemented as a transformer decoder with the positional embeddings of the masked patches as the query and the encodings for the visible patches as the key and value. The output is the prediction for encodings of the masked patches. The predictive loss is calculated by matching the predicted and actual encodings for the masked patches.
+We benchmark the I-JEPA~\cite{assran2023selfsupervisedlearningimagesjointembedding} framework for learning semantic representations for multispectral images, treating multispectral images like regular RGB images with extra channels. As shown in \cref{fig:ijepa}, the context \( x \) is constructed by applying the same patch-wise mask to all channels, while the target \( y \) is the unmasked image, containing information from all patches and channels. We implement the encoder \( E_\theta \) as a vision transformer (ViT)~\cite{dosovitskiy2021an} with learnable patch positional embeddings. The predictor is implemented as a transformer decoder with the positional embeddings of the masked patches as the query and the encodings for the visible patches as the key and value. The output is the prediction for encodings of the masked patches. The predictive loss is calculated by matching the predicted and actual encodings for the masked patches.
 
 \begin{figure}
 	\begin{center}
@@ -56,7 +56,7 @@ Adapting the original I-JEPA~\cite{assran2023selfsupervisedlearningimagesjointem
 \end{figure}
 
 
-\subsection{Spatio-Spectral JEPA}
+\subsection{Spatio-Spectral JEPA (SS-JEPA)}
 \label{sec:methodology_ssjepa}
 
 To learn stronger cross-modal dependencies in the semantic representations, we introduce Spatio-Spectral JEPA (SS-JEPA), which implements channel-wise masking and tokenization in contrast to the common mask and tokenization strategy across all channels, from \cref{sec:methodology_ijepa}. As shown in \cref{fig:ssjepa}, SS-JEPA uses distinct masks per channel, and the encoder outputs patch encodings for each visible patch in each channel. The encoder \( E_\theta \) is implemented as a modified ViT that tokenizes each patch in each channel, unlike the common tokenizer for all channels in I-JEPA. The predictor is a transformer decoder, with the spatial-spectral positional embeddings of the masked patches as queries and the encodings for the visible patches as input. The output is the prediction for the encodings of the masked patches. The predictive loss is calculated as the $L_2$ divergence between the predicted and actual encodings for the masked patches.
@@ -70,7 +70,7 @@ where \( p_{c,j} \) is the spatial-spectral positional embedding for channel \( 
 
 \begin{figure}
 	\begin{center}
-		\includegraphics[width=0.95\textwidth]{figures/ssjepa.pdf}
+		\includegraphics[width=0.9\textwidth]{figures/ssjepa.pdf}
 	\end{center}
 	\caption{Masking strategy and predictive loss calculation for the SS-JEPA encoder}\label{fig:ssjepa}
 \end{figure}

@@ -1,18 +1,32 @@
-\subsection{Qualitative Evaluation and Interpretability}
+\subsection{Qualitative Results and Representation Analysis}
 \label{sec:qual-eval}
 
-This section provides a qualitative analysis of the segmentation performance of models using the JEPA encoder backbones, and the latent representations learned by the JEPA encoders through comprehensive visualizations.
+This section provides a qualitative analysis of the segmentation performance of models using the JEPA encoder backbones, and an evaluation of the latent representations learned by the JEPA encoders.
 
 \paragraph{Segmentation Performance}
 A qualitative comparison of segmentation masks predicted by the best-performing models from \cref{sec:backbone-dec-compat} is presented in \cref{fig:seg-comp}. The first four columns present the different multispectral input bands (RGB, digital elevation model (DEM), slope and thermal inertial map), and the last three columns compare the segmentation masks from I-JEPA + SegFormer, SS-JEPA + UPerNet and the ground truth from the dataset respectively, overlayed on the grayscale band. The SS-JEPA + UPerNet model shows less false positives and produces segmentation masks with boundaries tighter to the ground truth, whereas those of I-JEPA are spread outward. We attribute this to the sharper and richer semantic representations learned by the SS-JEPA encoder, as discussed further.
 
 \paragraph{Latent Representation Analysis}
-A visualization of the latent encodings for patches of different multispectral images from the I-JEPA and SS-JEPA encoders is presented in \cref{fig:latent-viz}, where we show the first three principal components of the patch latents for each image, normalized and rendered as pseudo RGB images. SS-JEPA consistently produces sharper and semantically richer features compared to I-JEPA. We attribute this to the spatial-spectral masking strategy, constructing a cross-spectral semantic prediction task, allowing the encoder to capture rich semantic relationships between patches as well as channels. Such representations are essential in achieving the high downstream landslide segmentation performance with tight parameter budgets, as shown earlier in \cref{sec:comp-sota} and \cref{sec:model-compl-eff}.
+A visualization of the latent encodings for patches of different multispectral images from the I-JEPA and SS-JEPA encoders is presented in \cref{fig:latent-viz}, where the first three principal components of the patch embeddings are normalized and rendered as pseudo-RGB images. Compared to I-JEPA, the proposed SS-JEPA encoder produces spatially coherent and semantically structured latent representations, preserving larger terrain-level patterns and cross-spectral relationships across neighboring patches. In contrast, I-JEPA embeddings exhibit fragmented, high-frequency activations with weaker spatial consistency.
 
-\begin{figure}[t]
+To further quantify representation quality, we evaluate the latent embeddings using clust-ering-based metrics, reported in \cref{tab:latent-metrics.tex}. SS-JEPA achieves a substantially higher Silhouette score ($0.090$ vs. $0.017$) and Calinski-Harabasz score ($3778.412$ vs. $521.642$), while also reducing the Davies-Bouldin index ($2.699$ vs. $5.251$). These results indicate that SS-JEPA produces significantly more compact and better-separated latent clusters, suggesting improved semantic organization within the embedding space.
+
+Additionally, the singular value spectrum shown in \cref{fig:svd-plot} demonstrates that SS-JEPA maintains a broader eigenspectrum with slower singular value decay compared to I-JEPA. This indicates improved utilization of latent dimensions and richer feature diversity, reducing representation collapse while preserving meaningful multispectral structure. We attribute these improvements to the proposed spatial-spectral masking strategy, which encourages the encoder to jointly model spatial continuity and spectral relationships across channels. Such semantically organized latent representations are critical for achieving strong downstream landslide segmentation performance under constrained parameter budgets, as demonstrated earlier in \cref{sec:comp-sota}.
+
+\input{sections/tables/latent-metrics.tex}
+
+\begin{figure}
+	\begin{center}
+		\input{figures/svd-plot/plot.tex}
+	\end{center}
+	\caption{Singular Values of Encodings from I-JEPA vs. SS-JEPA}\label{fig:svd-plot}
+\end{figure}
+
+\begin{figure}
 	\begin{center}
 		\includegraphics[width=0.95\textwidth]{figures/seg-comp.pdf}
 	\end{center}
+	\vspace{-1em}
 	\caption{Comparison of masks from segmentation models with JEPA encoder backbones}\label{fig:seg-comp}
 \end{figure}
 
@@ -22,6 +36,7 @@ A visualization of the latent encodings for patches of different multispectral i
 		\includegraphics[width=0.95\textwidth]{figures/latents1.pdf}
 		\includegraphics[width=0.95\textwidth]{figures/latents2.pdf}
 	\end{center}
+	\vspace{-1em}
 	\caption{Visualization of patch latent encodings from JEPA encoders}\label{fig:latent-viz}
 \end{figure}
 
