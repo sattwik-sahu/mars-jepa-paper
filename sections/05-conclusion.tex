@@ -1,12 +1,23 @@
 \section{Conclusion}
 \label{sec:conclusion}
 
+% In this work, we introduce a Spatio-Spectral Joint Embedding Predictive Architecture (SS-JEPA) specifically designed for the challenges of multimodal Martian landslide segmentation. By shifting from traditional end-to-end supervised learning methods to a latent-predictive representation learning framework, our approach effectively models the physical correlations between spectral bands.
+
+% Our primary contribution is a spatio-spectral masking strategy that enables the model to learn deep physical correlations between heterogeneous modalities.
+% We achieve landslide segmentation performance on par with SOTA methods that use \( 5.6\times \) larger models than ours.
+% Beyond these numerical gains, the proposed architecture captures the intrinsic physical correlations between different bands in multispectral terrestrial imagery to understand how the interaction between them shapes the Martian landscape, through qualitative visual analysis.
+
+% Despite these results, the scarcity of labeled Martian data remains a constraint, necessitating further validation across broader planetary datasets to ensure global generalizability.
+
+% The learned representations further highlight the importance of cross-modal interactions in multispectral planetary imagery, demonstrating how geological structures can manifest differently across spectral bands while still preserving meaningful latent relationships. Overall, this work presents a robust, scalable, and computationally efficient approach for automated Martian landslide segmentation, providing a practical pathway toward intelligent planetary exploration systems and protecting crucial assets deployed on the surface of the Red Planet.
+
+% Updated Conclusion Section:
+
 In this work, we introduce a Spatio-Spectral Joint Embedding Predictive Architecture (SS-JEPA) specifically designed for the challenges of multimodal Martian landslide segmentation. By shifting from traditional end-to-end supervised learning methods to a latent-predictive representation learning framework, our approach effectively models the physical correlations between spectral bands.
 
-Our primary contribution is a spatio-spectral masking strategy that enables the model to learn deep physical correlations between heterogeneous modalities.
-We achieve landslide segmentation performance on par with SOTA methods that use \( 5.6\times \) larger models than ours.
-Beyond these numerical gains, the proposed architecture captures the intrinsic physical correlations between different bands in multispectral terrestrial imagery to understand how the interaction between them shapes the Martian landscape, through qualitative visual analysis.
-Despite these results, the scarcity of labeled Martian data remains a constraint, necessitating further validation across broader planetary datasets to ensure global generalizability.
+Our primary contribution is a spatio-spectral masking strategy that enables the model to learn deep physical correlations between heterogeneous modalities. We achieve landslide segmentation performance on par with SOTA methods that use 5.6$\times$ larger models than ours.
 
-The learned representations further highlight the importance of cross-modal interactions in multispectral planetary imagery, demonstrating how geological structures can manifest differently across spectral bands while still preserving meaningful latent relationships. Overall, this work presents a robust, scalable, and computationally efficient approach for automated Martian landslide segmentation, providing a practical pathway toward intelligent planetary exploration systems and protecting crucial assets deployed on the surface of the Red Planet.
+Despite these results, the scarcity of labeled Martian data remains a constraint, necessitating further validation across broader planetary datasets to ensure global generalizability. Furthermore, while our channel ablation demonstrates that optical, topographic, and thermophysical modalities provide complementary cues, the optimal organization of these modalities and their spatial-spectral masking strategies remains unexplored. Future work will investigate modality-aware masking and separate representation learning for physical and visual cues, followed by cross-modal prediction and fusion to better exploit their complementary information.
+
+The learned representations further highlight the importance of cross-modal interactions in multispectral planetary imagery, demonstrating how geological structures can manifest differently across spectral bands while still preserving meaningful latent relationships. Overall, this work presents a robust, scalable, and computationally efficient approach for automated Martian landslide segmentation, providing a practical pathway toward intelligent planetary exploration systems.
 
